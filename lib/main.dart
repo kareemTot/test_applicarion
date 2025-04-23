@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:test_applicarion/feature/category/views/category_screen.dart';
+import 'package:test_applicarion/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:test_applicarion/core/constant/constant.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,8 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HttpLink httpLink = HttpLink(
-      "https://dev.alkhbaz.totplatform.net/graphql",
-      defaultHeaders: {"Content-Type": "application/json"},
+      baseUrl,
+      defaultHeaders: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
     );
     final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
       GraphQLClient(link: httpLink, cache: GraphQLCache()),
@@ -24,7 +30,7 @@ class MyApp extends StatelessWidget {
       client: client,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: CategoryScreen(),
+        home: BottomNavBarScreen(),
       ),
     );
   }
