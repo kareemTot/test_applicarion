@@ -1,8 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:test_applicarion/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:test_applicarion/feature/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:test_applicarion/core/constant/constant.dart';
 
 void main() {

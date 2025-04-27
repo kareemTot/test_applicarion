@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../feature/cart/views/cart_screen.dart';
-import '../feature/category/views/category_screen.dart';
+import '../cart/views/cart_screen.dart';
+import '../category/views/category_screen.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({super.key});

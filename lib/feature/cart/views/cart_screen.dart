@@ -20,13 +20,14 @@ class CartScreen extends StatelessWidget {
             return Center(child: Text(result.exception.toString()));
           }
           if (result.data != null) {
-            final newCarts = result.data?['carts']?['items'] ?? 0;
+            final newCarts = result.data?['cart']['items'] ?? 0;
+
             return Column(
               children: [
                 Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Text(
-                    "Cart Items (${newCarts.length})",
+                    "Carts (${newCarts.length})",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -37,15 +38,16 @@ class CartScreen extends StatelessWidget {
                       final item = newCarts[index];
                       return CustomCartItem(
                         image:
-                            item['image'] != null
+                            item['imageUrl'] != null
                                 ? Image.network(
-                                  item['image'],
+                                  item['imageUrl'],
                                   fit: BoxFit.cover,
                                 )
                                 : Icon(Icons.shopping_bag, size: 40),
                         title: item['name'] ?? 'Product Name',
-                        pricr:
+                        price:
                             '\$${item['price']?.toStringAsFixed(2) ?? '0.00'}',
+                        quantity: item['quantity'] ?? 0,
                       );
                     },
                   ),
