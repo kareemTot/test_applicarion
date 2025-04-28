@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:test_applicarion/feature/cart/service/add_item_to_cart_mut.dart';
+import '../../../core/constant/constant.dart';
 import '../service/product_ql.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -125,8 +127,50 @@ class _ProductScreenState extends State<ProductScreen> {
                     itemBuilder: (context, index) {
                       if (index < loadedProducts.length) {
                         return ListTile(
+                          trailing: Mutation(
+                            options: MutationOptions(
+                              document: gql(addItemToCartMut),
+                              variables: {
+                                'id': loadedProducts[index]['id'].toString(),
+                              },
+                              onCompleted: (data) {
+                                log("item added to cart and result is $data");
+                              },
+                              onError: (error) {
+                                log("error: $error");
+                              },
+                            ),
+                            builder:
+                                (runMutation, result) => GestureDetector(
+                                  onTap: () {
+                                    log("${loadedProducts[index]['id']}");
+                                    log("$runMutation");
+                                    log("result: $result");
+                                    runMutation({
+                                      'id':
+                                          loadedProducts[index]['id']
+                                              .toString(),
+                                    });
+                                  },
+                                  child:
+                                      result!.isLoading
+                                          ? const CircularProgressIndicator()
+                                          : Icon(
+                                            Icons.shopping_cart,
+                                            color: Colors.orange,
+                                          ),
+                                ),
+                          ),
                           title: Text(loadedProducts[index]['name'].toString()),
-                          subtitle: Text(loadedProducts[index]['code']),
+                          subtitle: Row(
+                            spacing: 6,
+                            children: [
+                              Text(loadedProducts[index]['code']),
+                              Text(
+                                "Quantity ${loadedProducts[index]['maxQuantity']}",
+                              ),
+                            ],
+                          ),
                           leading: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Image.network(
@@ -134,7 +178,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                       loadedProducts[index]['images']
                                           .isNotEmpty)
                                   ? loadedProducts[index]['images'][0]['url']
-                                  : loadedProducts[0]['images'][0]['url'],
+                                  : image,
+                              height: 80,
+                              width: 80,
                             ),
                           ),
                         );
