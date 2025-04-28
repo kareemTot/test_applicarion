@@ -5,7 +5,10 @@ import 'package:test_applicarion/core/constant/constant.dart';
 import 'package:test_applicarion/feature/cart/service/cart_ql.dart';
 import 'package:test_applicarion/feature/cart/service/remove_all_cart_item.dart';
 import 'package:test_applicarion/feature/cart/service/remove_item_from_cart.dart';
+import 'package:test_applicarion/feature/cart/views/add_address_screen.dart';
 import 'package:test_applicarion/feature/cart/widget/custom_cart_item.dart';
+
+import '../../../core/widget/custom_app_button.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -30,38 +33,50 @@ class CartScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Carts (${newCarts.length})",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Mutation(
+                            options: MutationOptions(
+                              document: gql(clearAllItem),
+                              onCompleted: (data) {
+                                refetch?.call();
+                              },
+                            ),
+
+                            builder:
+                                (runMutation, result) => GestureDetector(
+                                  onTap: () {
+                                    runMutation({});
+                                  },
+                                  child: Text(
+                                    "Clear All Cart Items ",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                          ),
+                        ],
+                      ),
                       Text(
-                        "Carts (${newCarts.length})",
+                        "Total ${result.data?['cart']['total']['formattedAmount']}",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      Mutation(
-                        options: MutationOptions(
-                          document: gql(clearAllItem),
-                          onCompleted: (data) {
-                            refetch?.call();
-                          },
-                        ),
-
-                        builder:
-                            (runMutation, result) => GestureDetector(
-                              onTap: () {
-                                runMutation({});
-                              },
-                              child: Text(
-                                "Clear All Cart Items ",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
                       ),
                     ],
                   ),
@@ -98,12 +113,28 @@ class CartScreen extends StatelessWidget {
                                   .take(5)
                                   .join(" "),
                               price:
-                                  '\$${item['price']?.toStringAsFixed(2) ?? '0.00'}',
+                                  "${item['extendedPrice']['formattedAmount']}",
                               quantity: item['quantity'] ?? 0,
                               onPressed: () {
                                 runMutation({'id': item['id']});
                               },
                             ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: CustomAppButton(
+                    height: 44,
+                    text: "Checkout",
+                    containerColor: Colors.orange,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddAddressScreen(),
+                        ),
                       );
                     },
                   ),

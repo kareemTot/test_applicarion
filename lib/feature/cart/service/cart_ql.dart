@@ -62,6 +62,22 @@ query Cart {
             width
             fulfillmentCenterId
             fulfillmentCenterName
+              extendedPrice {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
+        }
+          total {
+            amount
+            decimalDigits
+            formattedAmount
+            formattedAmountWithoutCurrency
+            formattedAmountWithoutPoint
+            formattedAmountWithoutPointAndCurrency
         }
     }
 }
