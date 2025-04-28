@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/feature/cart/service/cart_ql.dart';
+import 'package:test_applicarion/feature/cart/service/remove_item_from_cart.dart';
 import 'package:test_applicarion/feature/cart/widget/custom_cart_item.dart';
 
 class CartScreen extends StatelessWidget {
@@ -36,18 +38,39 @@ class CartScreen extends StatelessWidget {
                     itemCount: newCarts.length,
                     itemBuilder: (context, index) {
                       final item = newCarts[index];
-                      return CustomCartItem(
-                        image:
-                            item['imageUrl'] != null
-                                ? Image.network(
-                                  item['imageUrl'],
-                                  fit: BoxFit.cover,
-                                )
-                                : Icon(Icons.shopping_bag, size: 40),
-                        title: item['name'] ?? 'Product Name',
-                        price:
-                            '\$${item['price']?.toStringAsFixed(2) ?? '0.00'}',
-                        quantity: item['quantity'] ?? 0,
+                      return Mutation(
+                        options: MutationOptions(
+                          document: gql(removeItemFromCart),
+                          variables: {'id': item['id']},
+                          onCompleted: (data) {
+                            log("Item ${item['id']} removed from cart");
+                            refetch?.call();
+                          },
+                          onError: (error) {
+                            log("error $error");
+                          },
+                        ),
+                        builder:
+                            (runMutation, result) => CustomCartItem(
+                              image:
+                                  item['imageUrl'] != null
+                                      ? Image.network(
+                                        item['imageUrl'],
+                                        fit: BoxFit.cover,
+                                      )
+                                      : Icon(Icons.shopping_bag, size: 40),
+                              title: item['name']
+                                  .toString()
+                                  .split(' ')
+                                  .take(5)
+                                  .join(" "),
+                              price:
+                                  '\$${item['price']?.toStringAsFixed(2) ?? '0.00'}',
+                              quantity: item['quantity'] ?? 0,
+                              onPressed: () {
+                                runMutation({'id': item['id']});
+                              },
+                            ),
                       );
                     },
                   ),

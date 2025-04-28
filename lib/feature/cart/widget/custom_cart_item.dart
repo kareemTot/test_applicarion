@@ -5,6 +5,7 @@ class CustomCartItem extends StatelessWidget {
   final String title;
   final String price;
   final int quantity;
+  final void Function()? onPressed;
 
   const CustomCartItem({
     super.key,
@@ -12,6 +13,7 @@ class CustomCartItem extends StatelessWidget {
     required this.title,
     required this.price,
     required this.quantity,
+    this.onPressed,
   });
 
   @override
@@ -37,6 +39,7 @@ class CustomCartItem extends StatelessWidget {
 
             Expanded(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     spacing: 8,
@@ -67,7 +70,7 @@ class CustomCartItem extends StatelessWidget {
                   ),
                   IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {},
+                    onPressed: onPressed,
                   ),
                 ],
               ),
