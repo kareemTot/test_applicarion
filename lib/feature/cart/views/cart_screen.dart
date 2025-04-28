@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:test_applicarion/core/constant/constant.dart';
 import 'package:test_applicarion/feature/cart/service/cart_ql.dart';
+import 'package:test_applicarion/feature/cart/service/remove_all_cart_item.dart';
 import 'package:test_applicarion/feature/cart/service/remove_item_from_cart.dart';
 import 'package:test_applicarion/feature/cart/widget/custom_cart_item.dart';
 
@@ -28,9 +30,40 @@ class CartScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    "Carts (${newCarts.length})",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Carts (${newCarts.length})",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Mutation(
+                        options: MutationOptions(
+                          document: gql(clearAllItem),
+                          onCompleted: (data) {
+                            refetch?.call();
+                          },
+                        ),
+
+                        builder:
+                            (runMutation, result) => GestureDetector(
+                              onTap: () {
+                                runMutation({});
+                              },
+                              child: Text(
+                                "Clear All Cart Items ",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(
@@ -58,7 +91,7 @@ class CartScreen extends StatelessWidget {
                                         item['imageUrl'],
                                         fit: BoxFit.cover,
                                       )
-                                      : Icon(Icons.shopping_bag, size: 40),
+                                      : Image.network(image),
                               title: item['name']
                                   .toString()
                                   .split(' ')
