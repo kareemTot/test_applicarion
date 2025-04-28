@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/core/constant/constant.dart';
+import 'package:test_applicarion/core/func/show_toast.dart';
 import 'package:test_applicarion/core/widget/cstom_text_form_filed.dart';
 import 'package:test_applicarion/core/widget/custom_app_button.dart';
 import 'package:test_applicarion/feature/cart/service/add_cart_address_ql.dart';
@@ -40,8 +41,16 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
           options: MutationOptions(
             onCompleted: (data) {
               log("address is added successfully and Data is $data");
+              showToast(
+                message: "address is added successfully",
+                backgroundColor: Colors.green,
+              );
             },
             onError: (error) {
+              showToast(
+                message: "address is added successfully",
+                backgroundColor: Colors.redAccent,
+              );
               log(error.toString());
             },
             document: gql(addAddressQl),
@@ -89,20 +98,22 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       },
                     ),
                     SizedBox(height: 60),
-                    CustomAppButton(
-                      text: "Save",
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          runMutation({
-                            'city': _cityController.text,
-                            'countryName': _countryController.text,
-                            'firstName': _firstnameController.text,
-                            'lastName': _lastNameController.text,
-                          });
-                        }
-                      },
-                      containerColor: Colors.orange,
-                    ),
+                    result!.isLoading
+                        ? const CircularProgressIndicator()
+                        : CustomAppButton(
+                          text: "Save",
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              runMutation({
+                                'city': _cityController.text,
+                                'countryName': _countryController.text,
+                                'firstName': _firstnameController.text,
+                                'lastName': _lastNameController.text,
+                              });
+                            }
+                          },
+                          containerColor: Colors.orange,
+                        ),
                   ],
                 ),
               ),
