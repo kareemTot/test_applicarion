@@ -21,6 +21,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _line1Controller = TextEditingController();
 
   @override
   void dispose() {
@@ -28,6 +29,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     _lastNameController.dispose();
     _countryController.dispose();
     _cityController.dispose();
+    _line1Controller.dispose();
     super.dispose();
   }
 
@@ -40,25 +42,28 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         child: Mutation(
           options: MutationOptions(
             onCompleted: (data) {
-              log("address is added successfully and Data is $data");
-              showToast(
-                message: "address is added successfully",
-                backgroundColor: Colors.green,
-              );
+              if (data != null) {
+                log("address is added successfully and Data is $data");
+                showToast(
+                  message: "address is added successfully",
+                  backgroundColor: Colors.green,
+                );
+              }
             },
             onError: (error) {
               showToast(
-                message: "address is added successfully",
+                message: error.toString(),
                 backgroundColor: Colors.redAccent,
               );
               log(error.toString());
             },
             document: gql(addAddressQl),
             variables: {
-              'city': _cityController.text,
+              'cityName': _cityController.text,
               'countryName': _countryController.text,
               'firstName': _firstnameController.text,
               'lastName': _lastNameController.text,
+              'line1': _line1Controller.text,
             },
           ),
 
@@ -89,7 +94,13 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         return val!.isEmpty ? validationText : null;
                       },
                     ),
-
+                    CustomTextFormFiled(
+                      controller: _line1Controller,
+                      hintText: "Line1",
+                      validator: (val) {
+                        return val!.isEmpty ? validationText : null;
+                      },
+                    ),
                     CustomTextFormFiled(
                       controller: _countryController,
                       hintText: "Country",
@@ -105,10 +116,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               runMutation({
-                                'city': _cityController.text,
+                                'cityName': _cityController.text,
                                 'countryName': _countryController.text,
                                 'firstName': _firstnameController.text,
                                 'lastName': _lastNameController.text,
+                                'line1': _line1Controller.text,
                               });
                             }
                           },
