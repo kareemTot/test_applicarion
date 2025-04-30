@@ -1,0 +1,81 @@
+const String updateOrderPayment = '''
+mutation AddOrUpdateOrderPayment(\$id :String! , \$amount :OptionalDecimal!) {
+    addOrUpdateOrderPayment(
+        command: {
+            orderId: \$id
+            payment: { paymentGatewayCode: "DefaultManualPaymentMethod", amount: \$amount }
+        }
+    ) {
+        id
+        operationType
+        parentOperationId
+        number
+        isApproved
+        status
+        comment
+        outerId
+        isCancelled
+        cancelledDate
+        cancelReason
+        objectType
+        customerId
+        customerName
+        channelId
+        storeId
+        storeName
+        organizationId
+        organizationName
+        employeeId
+        employeeName
+        shoppingCartId
+        isPrototype
+        subscriptionNumber
+        subscriptionId
+        purchaseOrderNumber
+        feeWithTax
+        feeTotal
+        feeTotalWithTax
+        taxType
+        taxPercentRate
+        languageCode
+        createdDate
+        createdBy
+        modifiedDate
+        modifiedBy
+        coupons
+        items {
+            id
+            productType
+            name
+            comment
+            imageUrl
+            isGift
+            shippingMethodCode
+            fulfillmentLocationCode
+            fulfillmentCenterId
+            fulfillmentCenterName
+            outerId
+            weightUnit
+            weight
+            measureUnit
+            height
+            length
+            width
+            isCancelled
+            cancelledDate
+            cancelReason
+            objectType
+            status
+            categoryId
+            catalogId
+            sku
+            priceId
+            taxType
+            taxPercentRate
+            reserveQuantity
+            quantity
+            productId
+        }
+    }
+}
+ ''';
