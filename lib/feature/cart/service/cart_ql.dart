@@ -79,6 +79,34 @@ query Cart {
             formattedAmountWithoutPoint
             formattedAmountWithoutPointAndCurrency
         }
+           shipments {
+            id
+            shipmentMethodCode
+            taxPercentRate
+            deliveryAddress {
+                id
+                key
+                city
+                countryCode
+                countryName
+                firstName
+                lastName
+                line1
+                name
+                regionId
+                regionName
+                outerId
+                addressType
+            }
+            price {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
+        }
     }
 }
 

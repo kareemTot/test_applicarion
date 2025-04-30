@@ -133,7 +133,12 @@ class CartScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AddAddressScreen(),
+                          builder:
+                              (context) => AddAddressScreen(
+                                shipmentId:
+                                    result.data?['cart']['shipments'][0]['id'],
+                                cartId: result.data?['cart']['id'],
+                              ),
                         ),
                       );
                     },

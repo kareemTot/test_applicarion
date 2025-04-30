@@ -1,10 +1,10 @@
 const String addAddressQl = ''' 
-mutation AddOrUpdateCartShipment (\$cityName :OptionalString , \$countryName : OptionalString ,\$firstName :OptionalString , \$lastName : OptionalString,\$line1 : OptionalString,) {
+mutation AddOrUpdateCartShipment (\$cityName :OptionalString , \$countryName : OptionalString ,\$firstName :OptionalString , \$lastName : OptionalString,\$line1 : OptionalString,\$shipmentId : OptionalString) {
     addOrUpdateCartShipment(
         command: {
             storeId: "alkhbaz"
             userId: "5f5d15fd-39e2-4a8d-93d8-727208148bea"
-            cartId: "95f60df5-136f-49e6-b0c3-42289c11aacb"
+            cartId: "c5065f34-551f-4d64-b9cc-6670fbda20aa"
             cartType: "cart"
             cartName: "DefaultCart"
             currencyCode: "EGP"
@@ -22,6 +22,7 @@ mutation AddOrUpdateCartShipment (\$cityName :OptionalString , \$countryName : O
                 }
                 fulfillmentCenterId: "d062133c-c665-473a-ad97-931f10fea351"
                 shipmentMethodCode: "ZoneRate"
+                id: \$shipmentId
             }
             cultureName: "en-US"
         }
