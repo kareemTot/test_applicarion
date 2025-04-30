@@ -7,8 +7,7 @@ import 'package:test_applicarion/core/func/show_toast.dart';
 import 'package:test_applicarion/core/widget/cstom_text_form_filed.dart';
 import 'package:test_applicarion/core/widget/custom_app_button.dart';
 import 'package:test_applicarion/feature/cart/service/add_cart_address_ql.dart';
-import 'package:test_applicarion/feature/cart/service/create_order_ql.dart';
-import 'package:test_applicarion/feature/cart/views/payment_screen.dart';
+import 'package:test_applicarion/feature/cart/views/order_summary.dart';
 
 class AddAddressScreen extends StatefulWidget {
   final String? shipmentId;
@@ -52,35 +51,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   message: "address is added successfully",
                   backgroundColor: Colors.green,
                 );
-
-                final client = GraphQLProvider.of(context).value;
-                final MutationOptions orderMutation = MutationOptions(
-                  document: gql(createOrderQl),
-                  variables: {'id': widget.cartId},
-                  onCompleted: (data) {
-                    if (data != null) {
-                      log("order is created successfully and Data is $data");
-                      showToast(
-                        message: "order is created successfully",
-                        backgroundColor: Colors.green,
-                      );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PaymentScreen(),
-                        ),
-                      );
-                    }
-                  },
-                  onError: (error) {
-                    showToast(
-                      message: error.toString(),
-                      backgroundColor: Colors.redAccent,
-                    );
-                    log(error.toString());
-                  },
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => OrderSummaryScreen()),
                 );
-                await client.mutate(orderMutation);
               }
             },
             onError: (error) {

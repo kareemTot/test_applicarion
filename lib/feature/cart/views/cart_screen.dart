@@ -6,6 +6,7 @@ import 'package:test_applicarion/feature/cart/service/cart_ql.dart';
 import 'package:test_applicarion/feature/cart/service/remove_all_cart_item.dart';
 import 'package:test_applicarion/feature/cart/service/remove_item_from_cart.dart';
 import 'package:test_applicarion/feature/cart/views/add_address_screen.dart';
+import 'package:test_applicarion/feature/cart/views/order_summary.dart';
 import 'package:test_applicarion/feature/cart/widget/custom_cart_item.dart';
 
 import '../../../core/widget/custom_app_button.dart';
@@ -133,12 +134,7 @@ class CartScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder:
-                              (context) => AddAddressScreen(
-                                shipmentId:
-                                    result.data?['cart']['shipments'][0]['id'],
-                                cartId: result.data?['cart']['id'],
-                              ),
+                          builder: (context) => OrderSummaryScreen(),
                         ),
                       );
                     },
