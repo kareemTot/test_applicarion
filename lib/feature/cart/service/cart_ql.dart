@@ -2,30 +2,20 @@ String cartQl = '''
 query Cart {
     cart(
         storeId: "alkhbaz"
-        currencyCode: "EGP"
         userId: "5f5d15fd-39e2-4a8d-93d8-727208148bea"
         cartType: "cart"
         cartName: "DefaultCart"
+        currencyCode: "EGP"
     ) {
         id
         name
-        status
         storeId
-        fulfillmentCenterId
-        channelId
         hasPhysicalProducts
         isAnonymous
         customerId
         customerName
-        organizationId
         isRecuring
-        comment
-        purchaseOrderNumber
-        volumetricWeight
-        weightUnit
-        weight
         taxPercentRate
-        taxType
         itemsCount
         itemsQuantity
         type
@@ -35,17 +25,13 @@ query Cart {
             catalogId
             categoryId
             createdDate
-            height
             id
             imageUrl
             isGift
             isReadOnly
             isReccuring
-            languageCode
-            length
             measureUnit
             name
-            note
             objectType
             productId
             productType
@@ -55,14 +41,10 @@ query Cart {
             sku
             taxPercentRate
             taxType
-            thumbnailImageUrl
-            volumetricWeight
-            weight
             weightUnit
-            width
             fulfillmentCenterId
             fulfillmentCenterName
-              extendedPrice {
+            extendedPrice {
                 amount
                 decimalDigits
                 formattedAmount
@@ -71,7 +53,7 @@ query Cart {
                 formattedAmountWithoutPointAndCurrency
             }
         }
-          total {
+        total {
             amount
             decimalDigits
             formattedAmount
@@ -79,7 +61,92 @@ query Cart {
             formattedAmountWithoutPoint
             formattedAmountWithoutPointAndCurrency
         }
+        shipments {
+            id
+            shipmentMethodCode
+            taxPercentRate
+            deliveryAddress {
+                id
+                key
+                city
+                countryCode
+                countryName
+                firstName
+                lastName
+                line1
+                name
+                regionId
+                regionName
+                outerId
+                addressType
+            }
+            price {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
+        }
+        subTotal {
+            amount
+            decimalDigits
+            formattedAmount
+            formattedAmountWithoutCurrency
+            formattedAmountWithoutPoint
+            formattedAmountWithoutPointAndCurrency
+        }
+        taxTotal {
+            amount
+            decimalDigits
+            formattedAmount
+            formattedAmountWithoutCurrency
+            formattedAmountWithoutPoint
+            formattedAmountWithoutPointAndCurrency
+        }
+        taxDetails {
+            name
+            price {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
+            amount {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
+        }
+        shippingPrice {
+            amount
+            decimalDigits
+            formattedAmount
+            formattedAmountWithoutCurrency
+            formattedAmountWithoutPoint
+            formattedAmountWithoutPointAndCurrency
+        }
+        shippingTotal {
+            amount
+            decimalDigits
+            formattedAmount
+            formattedAmountWithoutCurrency
+            formattedAmountWithoutPoint
+            formattedAmountWithoutPointAndCurrency
+        }
+        discounts {
+            coupon
+            description
+            promotionId
+            amount
+            amountWithTax
+        }
     }
 }
-
 ''';

@@ -5,7 +5,7 @@ import 'package:test_applicarion/core/constant/constant.dart';
 import 'package:test_applicarion/feature/cart/service/cart_ql.dart';
 import 'package:test_applicarion/feature/cart/service/remove_all_cart_item.dart';
 import 'package:test_applicarion/feature/cart/service/remove_item_from_cart.dart';
-import 'package:test_applicarion/feature/cart/views/add_address_screen.dart';
+import 'package:test_applicarion/feature/cart/views/order_summary.dart';
 import 'package:test_applicarion/feature/cart/widget/custom_cart_item.dart';
 
 import '../../../core/widget/custom_app_button.dart';
@@ -27,7 +27,7 @@ class CartScreen extends StatelessWidget {
             return Center(child: Text(result.exception.toString()));
           }
           if (result.data != null) {
-            final newCarts = result.data?['cart']['items'] ?? 0;
+            final newCarts = result.data?['cart']['items'] ?? 0 as List;
 
             return Column(
               children: [
@@ -36,46 +36,52 @@ class CartScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Carts (${newCarts.length})",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                      Visibility(
+                        visible: newCarts.isNotEmpty,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Carts (${newCarts.length})",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Mutation(
-                            options: MutationOptions(
-                              document: gql(clearAllItem),
-                              onCompleted: (data) {
-                                refetch?.call();
-                              },
-                            ),
+                            Mutation(
+                              options: MutationOptions(
+                                document: gql(clearAllItem),
+                                onCompleted: (data) {
+                                  refetch?.call();
+                                },
+                              ),
 
-                            builder:
-                                (runMutation, result) => GestureDetector(
-                                  onTap: () {
-                                    runMutation({});
-                                  },
-                                  child: Text(
-                                    "Clear All Cart Items ",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
+                              builder:
+                                  (runMutation, result) => GestureDetector(
+                                    onTap: () {
+                                      runMutation({});
+                                    },
+                                    child: Text(
+                                      "Clear All Cart Items ",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
-                                ),
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        "Total ${result.data?['cart']['total']['formattedAmount']}",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      Visibility(
+                        visible: newCarts.isNotEmpty,
+                        child: Text(
+                          "Total ${result.data?['cart']['total']['formattedAmount']}",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -123,20 +129,23 @@ class CartScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: CustomAppButton(
-                    height: 44,
-                    text: "Checkout",
-                    containerColor: Colors.orange,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AddAddressScreen(),
-                        ),
-                      );
-                    },
+                Visibility(
+                  visible: newCarts.isNotEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: CustomAppButton(
+                      height: 44,
+                      text: "Checkout",
+                      containerColor: Colors.orange,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrderSummaryScreen(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

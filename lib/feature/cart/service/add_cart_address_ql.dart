@@ -1,17 +1,30 @@
 const String addAddressQl = ''' 
-mutation AddCartAddress(\$firstName : OptionalString , \$lastName : OptionalString , \$city : OptionalString , \$countryName : OptionalString) {
-    addCartAddress(
+mutation AddOrUpdateCartShipment (\$cityName :OptionalString , \$countryName : OptionalString ,\$firstName :OptionalString , \$lastName : OptionalString,\$line1 : OptionalString,\$shipmentId : OptionalString) {
+    addOrUpdateCartShipment(
         command: {
             storeId: "alkhbaz"
             userId: "5f5d15fd-39e2-4a8d-93d8-727208148bea"
-            address: {
-                city: \$city
-                countryName: \$countryName
-                addressType: 1
-                firstName: \$firstName
-                lastName: \$lastName
+            cartId: "722d6065-8412-43cc-a356-010c025bb0c7"
+            cartType: "cart"
+            cartName: "DefaultCart"
+            currencyCode: "EGP"
+            shipment: {
+                deliveryAddress: {
+                    countryName: \$countryName
+                    city: \$cityName
+                    firstName: \$firstName
+                    lastName:   \$lastName
+                    countryCode: "EG"
+                    line1: \$line1
+                    regionId: "701"
+                    regionName: "اكتوبر"
+                    name: "اكتوبر"
+                }
+                fulfillmentCenterId: "d062133c-c665-473a-ad97-931f10fea351"
+                shipmentMethodCode: "ZoneRate"
+                id: \$shipmentId
             }
-            cartId: "95f60df5-136f-49e6-b0c3-42289c11aacb"
+            cultureName: "en-US"
         }
     ) {
         id
@@ -26,46 +39,54 @@ mutation AddCartAddress(\$firstName : OptionalString , \$lastName : OptionalStri
         itemsCount
         itemsQuantity
         isValid
-        total {
-            amount
-            decimalDigits
-            formattedAmount
-            formattedAmountWithoutCurrency
-            formattedAmountWithoutPoint
-            formattedAmountWithoutPointAndCurrency
-        }
+        type
         items {
+            inStockQuantity
+            warehouseLocation
+            isValid
             catalogId
             categoryId
             createdDate
-            height
             id
             imageUrl
             isGift
             isReadOnly
             isReccuring
-            languageCode
-            length
             measureUnit
             name
-            note
             objectType
             productId
             productType
             quantity
             requiredShipping
-            shipmentMethodCode
             sku
             taxPercentRate
             taxType
-            thumbnailImageUrl
-            volumetricWeight
-            weight
             weightUnit
-            width
             fulfillmentCenterId
             fulfillmentCenterName
         }
+        shipments {
+            id
+            shipmentMethodCode
+            fulfillmentCenterId
+            taxPercentRate
+            deliveryAddress {
+                id
+                key
+                city
+                countryCode
+                countryName
+                firstName
+                lastName
+                line1
+                name
+                regionId
+                regionName
+                addressType
+            }
+        }
     }
 }
+
 ''';

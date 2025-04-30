@@ -7,9 +7,12 @@ import 'package:test_applicarion/core/func/show_toast.dart';
 import 'package:test_applicarion/core/widget/cstom_text_form_filed.dart';
 import 'package:test_applicarion/core/widget/custom_app_button.dart';
 import 'package:test_applicarion/feature/cart/service/add_cart_address_ql.dart';
+import 'package:test_applicarion/feature/cart/views/order_summary.dart';
 
 class AddAddressScreen extends StatefulWidget {
-  const AddAddressScreen({super.key});
+  final String? shipmentId;
+  final String cartId;
+  const AddAddressScreen({super.key, this.shipmentId, required this.cartId});
 
   @override
   State<AddAddressScreen> createState() => _AddAddressScreenState();
@@ -21,6 +24,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _line1Controller = TextEditingController();
 
   @override
   void dispose() {
@@ -28,6 +32,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     _lastNameController.dispose();
     _countryController.dispose();
     _cityController.dispose();
+    _line1Controller.dispose();
     super.dispose();
   }
 
@@ -39,26 +44,34 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 60),
         child: Mutation(
           options: MutationOptions(
-            onCompleted: (data) {
-              log("address is added successfully and Data is $data");
-              showToast(
-                message: "address is added successfully",
-                backgroundColor: Colors.green,
-              );
+            onCompleted: (data) async {
+              if (data != null) {
+                log("address is added successfully and Data is $data");
+                showToast(
+                  message: "address is added successfully",
+                  backgroundColor: Colors.green,
+                );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => OrderSummaryScreen()),
+                );
+              }
             },
             onError: (error) {
               showToast(
-                message: "address is added successfully",
+                message: error.toString(),
                 backgroundColor: Colors.redAccent,
               );
               log(error.toString());
             },
             document: gql(addAddressQl),
             variables: {
-              'city': _cityController.text,
+              'cityName': _cityController.text,
               'countryName': _countryController.text,
               'firstName': _firstnameController.text,
               'lastName': _lastNameController.text,
+              'line1': _line1Controller.text,
+              'shipmentId': widget.shipmentId,
             },
           ),
 
@@ -89,7 +102,13 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         return val!.isEmpty ? validationText : null;
                       },
                     ),
-
+                    CustomTextFormFiled(
+                      controller: _line1Controller,
+                      hintText: "Line1",
+                      validator: (val) {
+                        return val!.isEmpty ? validationText : null;
+                      },
+                    ),
                     CustomTextFormFiled(
                       controller: _countryController,
                       hintText: "Country",
@@ -105,10 +124,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               runMutation({
-                                'city': _cityController.text,
+                                'cityName': _cityController.text,
                                 'countryName': _countryController.text,
                                 'firstName': _firstnameController.text,
                                 'lastName': _lastNameController.text,
+                                'line1': _line1Controller.text,
+                                'shipmentId': widget.shipmentId,
                               });
                             }
                           },

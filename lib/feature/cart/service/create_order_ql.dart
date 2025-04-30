@@ -1,0 +1,84 @@
+const String createOrderQl = ''' 
+mutation CreateOrderFromCart(\$id :String!) {
+    createOrderFromCart(command: { cartId: \$id }) {
+        id
+        operationType
+        parentOperationId
+        number
+        isApproved
+        status
+        comment
+        outerId
+        isCancelled
+        cancelledDate
+        cancelReason
+        objectType
+        customerId
+        customerName
+        channelId
+        storeId
+        storeName
+        organizationId
+        organizationName
+        employeeId
+        employeeName
+        shoppingCartId
+        isPrototype
+        subscriptionNumber
+        subscriptionId
+        purchaseOrderNumber
+        feeWithTax
+        feeTotal
+        feeTotalWithTax
+        taxType
+        taxPercentRate
+        languageCode
+        createdDate
+        createdBy
+        modifiedDate
+        modifiedBy
+        coupons
+        total {
+            amount
+            decimalDigits
+            formattedAmount
+            formattedAmountWithoutCurrency
+            formattedAmountWithoutPoint
+            formattedAmountWithoutPointAndCurrency
+        }
+        items {
+            id
+            productType
+            name
+            comment
+            imageUrl
+            isGift
+            shippingMethodCode
+            fulfillmentLocationCode
+            fulfillmentCenterId
+            fulfillmentCenterName
+            outerId
+            weightUnit
+            weight
+            measureUnit
+            height
+            length
+            width
+            isCancelled
+            cancelledDate
+            cancelReason
+            objectType
+            status
+            categoryId
+            catalogId
+            sku
+            priceId
+            taxType
+            taxPercentRate
+            reserveQuantity
+            quantity
+            productId
+        }
+    }
+}
+''';
