@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:test_applicarion/feature/Orders/views/orders_screen.dart';
 
 import '../cart/views/cart_screen.dart';
 import '../category/views/category_screen.dart';
@@ -15,7 +16,7 @@ class BottomNavBarScreen extends StatefulWidget {
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int currentIndex = 0;
 
-  final List<Widget> screens = [CategoryScreen(), CartScreen()];
+  final List<Widget> screens = [CategoryScreen(), CartScreen(), OrdersScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +42,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
             icon: Icon(Icons.shopping_bag_outlined),
             label: "Cart",
           ),
+          BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Orders"),
         ],
       ),
       body: screens[currentIndex],

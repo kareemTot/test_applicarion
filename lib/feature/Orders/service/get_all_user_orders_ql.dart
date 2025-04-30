@@ -1,0 +1,118 @@
+const String getAllUserOrdersQl = ''' 
+
+query Orders {
+    orders {
+        totalCount
+        items {
+            id
+            operationType
+            parentOperationId
+            number
+            isApproved
+            status
+            comment
+            outerId
+            isCancelled
+            cancelledDate
+            cancelReason
+            objectType
+            customerId
+            customerName
+            channelId
+            storeId
+            storeName
+            organizationId
+            organizationName
+            employeeId
+            employeeName
+            shoppingCartId
+            isPrototype
+            subscriptionNumber
+            subscriptionId
+            purchaseOrderNumber
+            feeWithTax
+            feeTotal
+            feeTotalWithTax
+            taxType
+            taxPercentRate
+            languageCode
+            createdDate
+            createdBy
+            modifiedDate
+            modifiedBy
+            coupons
+            total {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
+            shippingTotal {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
+            items {
+                id
+                productType
+                name
+                comment
+                imageUrl
+                isGift
+                shippingMethodCode
+                fulfillmentLocationCode
+                fulfillmentCenterId
+                fulfillmentCenterName
+                outerId
+                weightUnit
+                weight
+                measureUnit
+                height
+                length
+                width
+                isCancelled
+                cancelledDate
+                cancelReason
+                objectType
+                status
+                categoryId
+                catalogId
+                sku
+                priceId
+                taxType
+                taxPercentRate
+                reserveQuantity
+                quantity
+                productId
+            }
+            addresses {
+                id
+                key
+                city
+                countryCode
+                countryName
+                email
+                firstName
+                middleName
+                lastName
+                line1
+                line2
+                name
+                organization
+                phone
+                regionId
+                regionName
+                zip
+                outerId
+                addressType
+            }
+        }
+    }
+}
+
+''';

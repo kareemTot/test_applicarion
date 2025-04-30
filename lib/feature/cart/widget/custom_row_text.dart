@@ -18,14 +18,16 @@ class CustomRowText extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: fontSize ?? 14,
-            fontWeight: fontWeight ?? FontWeight.w500,
+        Flexible(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: fontSize ?? 14,
+              fontWeight: fontWeight ?? FontWeight.w500,
+            ),
           ),
         ),
-        Text(value),
+        Flexible(child: FittedBox(child: Text(value))),
       ],
     );
   }
