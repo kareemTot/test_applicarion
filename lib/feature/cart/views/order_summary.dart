@@ -39,7 +39,7 @@ class OrderSummaryScreen extends StatelessWidget {
                     ),
                     child: SingleChildScrollView(
                       child: Column(
-                        spacing: 16,
+                        spacing: 8,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -96,7 +96,7 @@ class OrderSummaryScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 16,
+                          spacing: 8,
                           children: [
                             Text(
                               "Shipping Address",

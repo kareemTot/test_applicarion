@@ -5,7 +5,7 @@ mutation RemoveCartItem(\$id : String!) {
     storeId :"alkhbaz"
     userId :"5f5d15fd-39e2-4a8d-93d8-727208148bea"
     lineItemId : \$id
-    cartId: "c5065f34-551f-4d64-b9cc-6670fbda20aa"
+    cartId: "722d6065-8412-43cc-a356-010c025bb0c7"
     cartType: "cart"
     cartName: "DefaultCart"
     currencyCode: "EGP"
