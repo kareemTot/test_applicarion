@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/core/func/show_toast.dart';
 import 'package:test_applicarion/core/widget/custom_app_button.dart';
-import 'package:test_applicarion/feature/cart/views/payment_screen.dart';
+import 'package:test_applicarion/feature/cart/service/update_order_payment.dart';
 import 'package:test_applicarion/feature/cart/widget/custom_row_text.dart';
-
+import '../../bottom_nav_bar/bottom_nav_bar.dart';
 import '../service/cart_ql.dart';
 import '../service/create_order_ql.dart';
 import 'add_address_screen.dart';
@@ -16,14 +16,16 @@ class OrderSummaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GraphQLClient client = GraphQLProvider.of(context).value;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Order Summary'), centerTitle: true),
       body: Query(
         options: QueryOptions(document: gql(cartQl)),
-
         builder: (result, {fetchMore, refetch}) {
           final cart = result.data?['cart'];
           final shipments = result.data?['cart']['shipments'] as List?;
+
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child: Column(
@@ -31,7 +33,7 @@ class OrderSummaryScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
@@ -39,39 +41,38 @@ class OrderSummaryScreen extends StatelessWidget {
                     ),
                     child: SingleChildScrollView(
                       child: Column(
-                        spacing: 8,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Price Summary",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Divider(),
+                          const Divider(),
                           CustomRowText(
                             title: "Subtotal",
                             value: "${cart['subTotal']['formattedAmount']}",
                           ),
-                          Divider(),
+                          const Divider(),
                           CustomRowText(
                             title: "Tax Total",
                             value: "${cart['taxTotal']['formattedAmount']}",
                           ),
-                          Divider(),
+                          const Divider(),
                           CustomRowText(
                             title: "Shipping Total",
                             value:
                                 "${cart['shippingPrice']['formattedAmount']}",
                           ),
-                          Divider(),
+                          const Divider(),
                           CustomRowText(
                             title: "shippingTotal",
                             value:
                                 "${cart['shippingTotal']['formattedAmount']}",
                           ),
-                          Divider(),
+                          const Divider(),
                           CustomRowText(
                             title: "Total",
                             value: "${cart['total']['formattedAmount']}",
@@ -84,10 +85,10 @@ class OrderSummaryScreen extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: shipments!.isNotEmpty,
+                  visible: shipments?.isNotEmpty ?? false,
                   child: Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
@@ -96,44 +97,43 @@ class OrderSummaryScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
                           children: [
-                            Text(
+                            const Text(
                               "Shipping Address",
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Divider(),
+                            const Divider(),
                             CustomRowText(
                               title: "Name",
                               value:
-                                  "${shipments.firstOrNull?['deliveryAddress']['firstName']}",
+                                  "${shipments?.firstOrNull?['deliveryAddress']['firstName']}",
                             ),
-                            Divider(),
+                            const Divider(),
                             CustomRowText(
                               title: "Last Name",
                               value:
-                                  "${shipments.firstOrNull?['deliveryAddress']['lastName']}",
+                                  "${shipments?.firstOrNull?['deliveryAddress']['lastName']}",
                             ),
-                            Divider(),
+                            const Divider(),
                             CustomRowText(
                               title: "Line 1",
                               value:
-                                  "${shipments.firstOrNull?['deliveryAddress']['line1']}",
+                                  "${shipments?.firstOrNull?['deliveryAddress']['line1']}",
                             ),
-                            Divider(),
+                            const Divider(),
                             CustomRowText(
                               title: "City",
                               value:
-                                  "${shipments.firstOrNull?['deliveryAddress']['city']}",
+                                  "${shipments?.firstOrNull?['deliveryAddress']['city']}",
                             ),
-                            Divider(),
+                            const Divider(),
                             CustomRowText(
                               title: "Country",
                               value:
-                                  "${shipments.firstOrNull?['deliveryAddress']['countryName']}",
+                                  "${shipments?.firstOrNull?['deliveryAddress']['countryName']}",
                             ),
                           ],
                         ),
@@ -147,50 +147,87 @@ class OrderSummaryScreen extends StatelessWidget {
                     variables: {'id': cart['id']},
                     onError: (error) {
                       log(error.toString());
+                      showToast(
+                        message: "Failed to create order: ${error.toString()}",
+                        backgroundColor: Colors.red,
+                      );
                     },
-                    onCompleted: (mutationData) {
+                    onCompleted: (mutationData) async {
                       if (mutationData != null) {
-                        showToast(
-                          message: "Order is created successfully",
-                          backgroundColor: Colors.green,
-                        );
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PaymentScreen(),
-                          ),
-                        );
+                        final orderId =
+                            mutationData['createOrderFromCart']['id'];
+                        final amount =
+                            mutationData['createOrderFromCart']['total']['amount'];
+
+                        try {
+                          final secondResult = await client.mutate(
+                            MutationOptions(
+                              document: gql(updateOrderPayment),
+                              variables: {'id': orderId, 'amount': amount},
+                              onError: (error) {
+                                log(error.toString());
+                              },
+                              onCompleted: (data) {
+                                if (data != null) {
+                                  log(
+                                    "============ Payment Updated ans this data : ${data.toString()}",
+                                  );
+                                  showToast(
+                                    message: "Order created successfully",
+                                    backgroundColor: Colors.green,
+                                  );
+                                }
+                              },
+                            ),
+                          );
+
+                          if (secondResult.hasException) {
+                            log(
+                              "===========================${secondResult.hasException}",
+                            );
+                          }
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BottomNavBarScreen(),
+                            ),
+                          );
+                        } catch (e) {
+                          log(e.toString());
+                        }
                       }
                     },
                   ),
-                  builder:
-                      (runMutation, mutationResult) =>
-                          mutationResult!.isLoading
-                              ? const Center(child: CircularProgressIndicator())
-                              : CustomAppButton(
-                                text:
-                                    shipments.isEmpty
-                                        ? "Add Address"
-                                        : "Create Order",
-                                onPressed: () {
-                                  shipments.isEmpty
-                                      ? Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder:
-                                              (context) => AddAddressScreen(
-                                                shipmentId:
-                                                    shipments
-                                                        .firstOrNull?['id'],
-                                                cartId:
-                                                    result.data?['cart']['id'],
-                                              ),
-                                        ),
-                                      )
-                                      : runMutation({'id': cart['id']});
-                                },
-                                containerColor: Colors.orange,
-                              ),
+                  builder: (runMutation, mutationResult) {
+                    if (mutationResult!.isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    return CustomAppButton(
+                      text:
+                          shipments?.isEmpty ?? true
+                              ? "Add Address"
+                              : "Create Order",
+                      onPressed: () {
+                        if (shipments?.isEmpty ?? true) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => AddAddressScreen(
+                                    shipmentId: shipments?.firstOrNull?['id'],
+                                    cartId: result.data?['cart']['id'],
+                                  ),
+                            ),
+                          );
+                        } else {
+                          runMutation({'id': cart['id']});
+                        }
+                      },
+                      containerColor: Colors.orange,
+                    );
+                  },
                 ),
               ],
             ),
