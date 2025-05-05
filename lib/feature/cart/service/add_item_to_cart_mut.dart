@@ -5,7 +5,7 @@ const String addItemToCartMut = '''
         quantity: 1
         storeId: "alkhbaz"
         userId:"5f5d15fd-39e2-4a8d-93d8-727208148bea"
-        cartId:"c16faf99-46d3-4ecb-9413-62e2d1b696f6"
+        cartId:"2354c681-e7f7-45fe-bbf6-e98efbef21e8"
         cartName: "DefaultCart"
         cartType: "cart"
         currencyCode: "EGP"

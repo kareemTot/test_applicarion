@@ -2,8 +2,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/feature/cart/service/add_item_to_cart_mut.dart';
-import '../../../core/constant/constant.dart';
-import '../service/product_ql.dart';
+import '../../../../core/constant/constant.dart';
+import '../../Data/service/product_ql.dart';
+import 'product_details_scren.dart';
 
 class ProductScreen extends StatefulWidget {
   final String category;
@@ -127,6 +128,19 @@ class _ProductScreenState extends State<ProductScreen> {
                     itemBuilder: (context, index) {
                       if (index < loadedProducts.length) {
                         return ListTile(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => ProductDetailsScren(
+                                      id:
+                                          loadedProducts[index]['id']
+                                              .toString(),
+                                    ),
+                              ),
+                            );
+                          },
                           trailing: Mutation(
                             options: MutationOptions(
                               document: gql(addItemToCartMut),
