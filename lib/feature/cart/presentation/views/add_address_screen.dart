@@ -6,8 +6,8 @@ import 'package:test_applicarion/core/constant/constant.dart';
 import 'package:test_applicarion/core/func/show_toast.dart';
 import 'package:test_applicarion/core/widget/cstom_text_form_filed.dart';
 import 'package:test_applicarion/core/widget/custom_app_button.dart';
-import 'package:test_applicarion/feature/cart/service/add_cart_address_ql.dart';
-import 'package:test_applicarion/feature/cart/views/order_summary.dart';
+import 'package:test_applicarion/feature/cart/Data/service/add_cart_address_ql.dart';
+import 'package:test_applicarion/feature/cart/presentation/views/order_summary.dart';
 
 class AddAddressScreen extends StatefulWidget {
   final String? shipmentId;

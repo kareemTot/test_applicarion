@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:test_applicarion/feature/products/view/product_screen.dart';
+import 'package:test_applicarion/feature/products/presentation/view/product_screen.dart';
 import '../service/category_ql.dart';
 
 class CategoryScreen extends StatefulWidget {
