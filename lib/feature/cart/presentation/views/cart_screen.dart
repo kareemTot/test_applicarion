@@ -2,13 +2,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/core/constant/constant.dart';
-import 'package:test_applicarion/feature/cart/service/cart_ql.dart';
-import 'package:test_applicarion/feature/cart/service/remove_all_cart_item.dart';
-import 'package:test_applicarion/feature/cart/service/remove_item_from_cart.dart';
-import 'package:test_applicarion/feature/cart/views/order_summary.dart';
-import 'package:test_applicarion/feature/cart/widget/custom_cart_item.dart';
+import 'package:test_applicarion/feature/cart/Data/service/cart_ql.dart';
+import 'package:test_applicarion/feature/cart/Data/service/remove_all_cart_item.dart';
+import 'package:test_applicarion/feature/cart/Data/service/remove_item_from_cart.dart';
+import 'package:test_applicarion/feature/cart/presentation/views/order_summary.dart';
+import 'package:test_applicarion/feature/cart/presentation/widget/custom_cart_item.dart';
 
-import '../../../core/widget/custom_app_button.dart';
+import '../../../../core/widget/custom_app_button.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

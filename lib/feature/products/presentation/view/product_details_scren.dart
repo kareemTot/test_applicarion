@@ -5,11 +5,11 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/core/constant/constant.dart';
 import 'package:test_applicarion/core/widget/custom_app_button.dart';
 import 'package:test_applicarion/di.dart';
-import 'package:test_applicarion/feature/cart/widget/custom_row_text.dart';
+import 'package:test_applicarion/feature/cart/presentation/widget/custom_row_text.dart';
 import 'package:test_applicarion/feature/products/presentation/cubit/product_details_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../cart/service/add_item_to_cart_mut.dart';
+import '../../../cart/Data/service/add_item_to_cart_mut.dart';
 
 class ProductDetailsScren extends StatelessWidget {
   final String id;

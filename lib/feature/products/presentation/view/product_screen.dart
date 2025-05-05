@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:test_applicarion/feature/cart/service/add_item_to_cart_mut.dart';
+import 'package:test_applicarion/feature/cart/Data/service/add_item_to_cart_mut.dart';
 import '../../../../core/constant/constant.dart';
 import '../../Data/service/product_ql.dart';
 import 'product_details_scren.dart';

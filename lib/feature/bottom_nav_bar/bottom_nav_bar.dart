@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:test_applicarion/feature/Orders/views/orders_screen.dart';
 
-import '../cart/views/cart_screen.dart';
+import '../cart/presentation/views/cart_screen.dart';
 import '../category/views/category_screen.dart';
 
 class BottomNavBarScreen extends StatefulWidget {

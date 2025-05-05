@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:test_applicarion/feature/cart/widget/custom_row_text.dart';
+import 'package:test_applicarion/feature/cart/presentation/widget/custom_row_text.dart';
 
 import '../service/get_all_user_orders_ql.dart';
 
