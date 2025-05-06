@@ -58,6 +58,100 @@ query Product(\$id: String!) {
             minQuantity
             maxQuantity
             slug
+            price {
+                discountPercent
+                currency
+                validFrom
+                startDate
+                validUntil
+                endDate
+                pricelistId
+                minQuantity
+                list {
+                    amount
+                    decimalDigits
+                    formattedAmount
+                    formattedAmountWithoutCurrency
+                    formattedAmountWithoutPoint
+                    formattedAmountWithoutPointAndCurrency
+                }
+            }
+            availabilityData {
+                availableQuantity
+                isBuyable
+                isAvailable
+                isInStock
+                isActive
+                isTrackInventory
+            }
+            prices {
+                discountPercent
+                currency
+                validFrom
+                startDate
+                validUntil
+                endDate
+                pricelistId
+                minQuantity
+                list {
+                    amount
+                    decimalDigits
+                    formattedAmount
+                    formattedAmountWithoutCurrency
+                    formattedAmountWithoutPoint
+                    formattedAmountWithoutPointAndCurrency
+                }
+            }
+        }
+        description {
+            id
+            reviewType
+            content
+            languageCode
+        }
+        minVariationPrice {
+            discountPercent
+            currency
+            validFrom
+            startDate
+            validUntil
+            endDate
+            pricelistId
+            minQuantity
+            list {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
+            tierPrices {
+                quantity
+                price {
+                    amount
+                    decimalDigits
+                    formattedAmount
+                    formattedAmountWithoutCurrency
+                    formattedAmountWithoutPoint
+                    formattedAmountWithoutPointAndCurrency
+                }
+                priceWithTax {
+                    amount
+                    decimalDigits
+                    formattedAmount
+                    formattedAmountWithoutCurrency
+                    formattedAmountWithoutPoint
+                    formattedAmountWithoutPointAndCurrency
+                }
+            }
+            discounts {
+                coupon
+                description
+                promotionId
+                amount
+                amountWithTax
+            }
         }
     }
 }

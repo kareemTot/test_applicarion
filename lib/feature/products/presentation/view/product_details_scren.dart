@@ -73,17 +73,33 @@ class ProductDetailsScren extends StatelessWidget {
                                     height: 100,
                                     child: ListView.separated(
                                       itemBuilder: (context, index) {
-                                        return Text(
-                                          cubit
-                                                  .productDetailsModel
-                                                  ?.product
-                                                  ?.variations?[index]
-                                                  .name ??
-                                              "",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              cubit
+                                                      .productDetailsModel
+                                                      ?.product
+                                                      ?.variations?[index]
+                                                      .name ??
+                                                  "",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            Text(
+                                              cubit
+                                                      .productDetailsModel
+                                                      ?.product
+                                                      ?.variations?[index]
+                                                      .price
+                                                      ?.list
+                                                      ?.formattedAmount ??
+                                                  "0.0",
+                                            ),
+                                          ],
                                         );
                                       },
                                       itemCount:

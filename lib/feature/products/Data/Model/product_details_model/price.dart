@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:test_applicarion/feature/products/Data/Model/product_details_model/list.dart';
 
 class Price extends Equatable {
   final double? discountPercent;
@@ -9,6 +10,7 @@ class Price extends Equatable {
   final dynamic endDate;
   final String? pricelistId;
   final int? minQuantity;
+  final ListModel? list;
 
   const Price({
     this.discountPercent,
@@ -19,6 +21,7 @@ class Price extends Equatable {
     this.endDate,
     this.pricelistId,
     this.minQuantity,
+    this.list,
   });
 
   factory Price.fromJson(Map<String, dynamic> json) => Price(
@@ -30,6 +33,10 @@ class Price extends Equatable {
     endDate: json['endDate'] as dynamic,
     pricelistId: json['pricelistId'] as String?,
     minQuantity: json['minQuantity'] as int?,
+    list:
+        json['list'] == null
+            ? null
+            : ListModel.fromJson(json['list'] as Map<String, dynamic>),
   );
 
   Map<String, dynamic> toJson() => {
@@ -41,6 +48,7 @@ class Price extends Equatable {
     'endDate': endDate,
     'pricelistId': pricelistId,
     'minQuantity': minQuantity,
+    'list': list,
   };
 
   @override
@@ -54,6 +62,7 @@ class Price extends Equatable {
       endDate,
       pricelistId,
       minQuantity,
+      list,
     ];
   }
 }
