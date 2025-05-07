@@ -20,3 +20,15 @@ final class UpdateOrderDynamicPropertiesErrorState extends CartState {
   @override
   List<Object> get props => [message];
 }
+
+final class GetCartLoadingState extends CartState {}
+
+final class GetCartSuccessState extends CartState {
+  final CartModel cartModel;
+  const GetCartSuccessState({required this.cartModel});
+}
+
+final class GetCartFailureState extends CartState {
+  final String message;
+  const GetCartFailureState({required this.message});
+}

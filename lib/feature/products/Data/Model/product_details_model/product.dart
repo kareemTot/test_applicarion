@@ -24,6 +24,8 @@ class Product extends Equatable {
   final List<Image>? images;
   final List<Price>? prices;
   final List<Variation>? variations;
+  final dynamic description;
+  final dynamic minVariationPrice;
 
   const Product({
     this.id,
@@ -45,6 +47,8 @@ class Product extends Equatable {
     this.images,
     this.prices,
     this.variations,
+    this.description,
+    this.minVariationPrice,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -79,6 +83,8 @@ class Product extends Equatable {
         (json['variations'] as List<dynamic>?)
             ?.map((e) => Variation.fromJson(e as Map<String, dynamic>))
             .toList(),
+    description: json['description'] as dynamic,
+    minVariationPrice: json['minVariationPrice'] as dynamic,
   );
 
   Map<String, dynamic> toJson() => {
@@ -101,6 +107,8 @@ class Product extends Equatable {
     'images': images?.map((e) => e.toJson()).toList(),
     'prices': prices?.map((e) => e.toJson()).toList(),
     'variations': variations?.map((e) => e.toJson()).toList(),
+    'description': description,
+    'minVariationPrice': minVariationPrice,
   };
 
   @override
@@ -125,6 +133,8 @@ class Product extends Equatable {
       images,
       prices,
       variations,
+      description,
+      minVariationPrice,
     ];
   }
 }

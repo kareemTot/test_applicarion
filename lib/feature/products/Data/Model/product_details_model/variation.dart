@@ -1,4 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'availability_data.dart';
+import 'image.dart';
+import 'price.dart';
 
 class Variation extends Equatable {
   final String? id;
@@ -8,6 +11,10 @@ class Variation extends Equatable {
   final int? minQuantity;
   final int? maxQuantity;
   final String? slug;
+  final Price? price;
+  final AvailabilityData? availabilityData;
+  final List<Price>? prices;
+  final List<Image>? images;
 
   const Variation({
     this.id,
@@ -17,6 +24,10 @@ class Variation extends Equatable {
     this.minQuantity,
     this.maxQuantity,
     this.slug,
+    this.price,
+    this.availabilityData,
+    this.prices,
+    this.images,
   });
 
   factory Variation.fromJson(Map<String, dynamic> json) => Variation(
@@ -27,6 +38,24 @@ class Variation extends Equatable {
     minQuantity: json['minQuantity'] as int?,
     maxQuantity: json['maxQuantity'] as int?,
     slug: json['slug'] as String?,
+    price:
+        json['price'] == null
+            ? null
+            : Price.fromJson(json['price'] as Map<String, dynamic>),
+    availabilityData:
+        json['availabilityData'] == null
+            ? null
+            : AvailabilityData.fromJson(
+              json['availabilityData'] as Map<String, dynamic>,
+            ),
+    prices:
+        (json['prices'] as List<dynamic>?)
+            ?.map((e) => Price.fromJson(e as Map<String, dynamic>))
+            .toList(),
+    images:
+        (json['images'] as List<dynamic>?)
+            ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
+            .toList(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -37,10 +66,26 @@ class Variation extends Equatable {
     'minQuantity': minQuantity,
     'maxQuantity': maxQuantity,
     'slug': slug,
+    'price': price?.toJson(),
+    'availabilityData': availabilityData?.toJson(),
+    'prices': prices?.map((e) => e.toJson()).toList(),
+    'images': images?.map((e) => e.toJson()).toList(),
   };
 
   @override
   List<Object?> get props {
-    return [id, name, code, productType, minQuantity, maxQuantity, slug];
+    return [
+      id,
+      name,
+      code,
+      productType,
+      minQuantity,
+      maxQuantity,
+      slug,
+      price,
+      availabilityData,
+      prices,
+      images,
+    ];
   }
 }
