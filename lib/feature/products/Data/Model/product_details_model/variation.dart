@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-
 import 'availability_data.dart';
+import 'image.dart';
 import 'price.dart';
 
 class Variation extends Equatable {
@@ -14,6 +14,7 @@ class Variation extends Equatable {
   final Price? price;
   final AvailabilityData? availabilityData;
   final List<Price>? prices;
+  final List<Image>? images;
 
   const Variation({
     this.id,
@@ -26,6 +27,7 @@ class Variation extends Equatable {
     this.price,
     this.availabilityData,
     this.prices,
+    this.images,
   });
 
   factory Variation.fromJson(Map<String, dynamic> json) => Variation(
@@ -50,6 +52,10 @@ class Variation extends Equatable {
         (json['prices'] as List<dynamic>?)
             ?.map((e) => Price.fromJson(e as Map<String, dynamic>))
             .toList(),
+    images:
+        (json['images'] as List<dynamic>?)
+            ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
+            .toList(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -63,6 +69,7 @@ class Variation extends Equatable {
     'price': price?.toJson(),
     'availabilityData': availabilityData?.toJson(),
     'prices': prices?.map((e) => e.toJson()).toList(),
+    'images': images?.map((e) => e.toJson()).toList(),
   };
 
   @override
@@ -78,6 +85,7 @@ class Variation extends Equatable {
       price,
       availabilityData,
       prices,
+      images,
     ];
   }
 }

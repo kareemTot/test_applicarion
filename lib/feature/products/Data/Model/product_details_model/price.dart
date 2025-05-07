@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:test_applicarion/feature/products/Data/Model/product_details_model/list.dart';
+
+import 'list.dart';
 
 class Price extends Equatable {
   final double? discountPercent;
@@ -48,7 +49,6 @@ class Price extends Equatable {
     'endDate': endDate,
     'pricelistId': pricelistId,
     'minQuantity': minQuantity,
-    'list': list,
   };
 
   @override
@@ -62,7 +62,6 @@ class Price extends Equatable {
       endDate,
       pricelistId,
       minQuantity,
-      list,
     ];
   }
 }

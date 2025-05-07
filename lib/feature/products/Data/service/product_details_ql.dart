@@ -1,5 +1,5 @@
 const String productDetailsQl = '''
-query Product(\$id: String!) {
+query Product(\$id:String!) {
     product(id: \$id, storeId: "alkhbaz") {
         id
         code
@@ -101,6 +101,15 @@ query Product(\$id: String!) {
                     formattedAmountWithoutPoint
                     formattedAmountWithoutPointAndCurrency
                 }
+            }
+            images {
+                id
+                name
+                group
+                url
+                relativeUrl
+                sortOrder
+                cultureName
             }
         }
         description {
