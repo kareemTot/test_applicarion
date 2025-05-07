@@ -66,57 +66,85 @@ class ProductDetailsScren extends StatelessWidget {
                                     cubit.productDetailsModel?.product?.code ??
                                     "",
                               ),
+                              CustomRowText(
+                                title: "Price",
+                                value:
+                                    cubit.productPrice ??
+                                    cubit
+                                        .productDetailsModel
+                                        ?.product
+                                        ?.price
+                                        ?.list
+                                        ?.formattedAmount ??
+                                    "",
+                              ),
+
                               cubit
                                           .productDetailsModel
                                           ?.product
                                           ?.hasVariations ==
                                       true
-                                  ? SizedBox(
-                                    height: 200,
-                                    child: ListView.builder(
-                                      itemBuilder: (context, index) {
-                                        return CustomVariationListViewBody(
-                                          onTap: () {
-                                            log(index.toString());
-                                            cubit.toggleVariationSelection(
-                                              index,
+                                  ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    spacing: 8,
+                                    children: [
+                                      Text("Variations"),
+                                      SizedBox(
+                                        height: 50,
+                                        child: ListView.separated(
+                                          padding: EdgeInsets.zero,
+                                          separatorBuilder: (context, index) {
+                                            return const SizedBox(width: 16);
+                                          },
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            return CustomVariationListViewBody(
+                                              onTap: () {
+                                                log(index.toString());
+                                                cubit.toggleVariationSelection(
+                                                  index,
+                                                );
+                                              },
+                                              borderColor:
+                                                  cubit.isSelectedVariation(
+                                                        index,
+                                                      )
+                                                      ? Colors.orange
+                                                      : Colors.grey,
+                                              variationName: cubit
+                                                  .textSepereatedFunction(
+                                                    cubit
+                                                            .productDetailsModel
+                                                            ?.product
+                                                            ?.variations?[index]
+                                                            .name ??
+                                                        "",
+                                                  ),
+                                              variationPrice:
+                                                  cubit
+                                                      .productDetailsModel
+                                                      ?.product
+                                                      ?.variations?[index]
+                                                      .price
+                                                      ?.list
+                                                      ?.formattedAmount ??
+                                                  "0.0",
+                                              index: index,
+                                              cubit: cubit,
                                             );
                                           },
-                                          borderColor:
-                                              cubit.isSelectedVariation(index)
-                                                  ? Colors.orange
-                                                  : Colors.grey,
-                                          variationName: cubit
-                                              .textSepereatedFunction(
-                                                cubit
-                                                        .productDetailsModel
-                                                        ?.product
-                                                        ?.variations?[index]
-                                                        .name ??
-                                                    "",
-                                              ),
-                                          variationPrice:
+
+                                          itemCount:
                                               cubit
                                                   .productDetailsModel
                                                   ?.product
-                                                  ?.variations?[index]
-                                                  .price
-                                                  ?.list
-                                                  ?.formattedAmount ??
-                                              "0.0",
-                                          index: index,
-                                          cubit: cubit,
-                                        );
-                                      },
-
-                                      itemCount:
-                                          cubit
-                                              .productDetailsModel
-                                              ?.product
-                                              ?.variations
-                                              ?.length ??
-                                          0,
-                                    ),
+                                                  ?.variations
+                                                  ?.length ??
+                                              0,
+                                        ),
+                                      ),
+                                    ],
                                   )
                                   : Text(
                                     "Quantity: ${cubit.productDetailsModel?.product?.maxQuantity}",
@@ -151,21 +179,6 @@ class ProductDetailsScren extends StatelessWidget {
                                 child: Column(
                                   spacing: 16,
                                   children: [
-                                    Visibility(
-                                      visible:
-                                          cubit.selectedVariations.isNotEmpty,
-                                      child: CustomAppButton(
-                                        height: 44,
-                                        text: "Show Product Original Details",
-                                        containerColor: Colors.orange,
-                                        onPressed: () {
-                                          cubit.clearSelection();
-                                          log(
-                                            "selectedVariations: ${cubit.selectedVariations}",
-                                          );
-                                        },
-                                      ),
-                                    ),
                                     CustomAppButton(
                                       height: 44,
                                       text: "Add To Cart",

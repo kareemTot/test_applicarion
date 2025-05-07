@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/di.dart';
 import 'package:test_applicarion/feature/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:test_applicarion/core/constant/constant.dart';
+import 'package:test_applicarion/feature/login/presentation/views/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       client: client,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: BottomNavBarScreen(),
+        home: LoginScreen(),
       ),
     );
   }

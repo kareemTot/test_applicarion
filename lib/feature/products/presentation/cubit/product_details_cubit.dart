@@ -14,6 +14,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   String? productName;
   String? productCode;
   String? productImage;
+  String? productPrice;
 
   bool isSelectedVariation(int index) => selectedVariations.contains(index);
 
@@ -32,14 +33,21 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void toggleVariationSelection(int index) {
     if (isSelectedVariation(index)) {
-      selectedVariations.remove(index);
+      clearSelection();
     } else {
-      selectedVariations.clear();
+      clearSelection();
       selectedVariations.add(index);
       productName = productDetailsModel?.product?.variations?[index].name;
       productCode = productDetailsModel?.product?.variations?[index].code;
       productImage =
           productDetailsModel?.product?.variations?[index].images?[0].url;
+      productPrice =
+          productDetailsModel
+              ?.product
+              ?.variations?[index]
+              .price
+              ?.list
+              ?.formattedAmount;
     }
     emit(ChangeSelectedVariation(index));
   }
@@ -55,6 +63,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     productName = productDetailsModel?.product?.name;
     productCode = productDetailsModel?.product?.code;
     productImage = productDetailsModel?.product?.images?.firstOrNull?.url;
+    productPrice = productDetailsModel?.product?.price?.list?.formattedAmount;
     emit(RemoveSelectedVariation());
   }
 }
