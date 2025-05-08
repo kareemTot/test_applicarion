@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/di.dart';
-import 'package:test_applicarion/feature/bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:test_applicarion/core/constant/constant.dart';
 import 'package:test_applicarion/feature/login/presentation/views/login_screen.dart';
+
+import 'core/cache/app_shared_pref.dart';
+import 'core/constant/constant.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependencyInjection();
-  runApp(const MyApp());
+
+  final token = await SharedPref().get(tokenValue);
+  runApp(MyApp(token: token));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String? token;
+  const MyApp({super.key, this.token});
 
   @override
   Widget build(BuildContext context) {

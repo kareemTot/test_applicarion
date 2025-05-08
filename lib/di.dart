@@ -7,6 +7,11 @@ import 'package:test_applicarion/feature/cart/Data/source/base/cart_source.dart'
 import 'package:test_applicarion/feature/cart/Data/source/impl/cart_source_implement.dart';
 import 'package:test_applicarion/feature/cart/domain/repo/cart_repo.dart';
 import 'package:test_applicarion/feature/cart/presentation/cubit/cart_cubit.dart';
+import 'package:test_applicarion/feature/fullfilment_center/data/repo/fullfilment_center_repo_impelement.dart';
+import 'package:test_applicarion/feature/fullfilment_center/data/source/base/fullfilment_center_source.dart';
+import 'package:test_applicarion/feature/fullfilment_center/data/source/implement/fullfilment_center_source_implement.dart';
+import 'package:test_applicarion/feature/fullfilment_center/domain/repo/fullfilment_center_repo.dart';
+import 'package:test_applicarion/feature/fullfilment_center/presentation/cubit/fullfilment_center_cubit.dart';
 import 'package:test_applicarion/feature/products/Data/source/base/products_source.dart';
 import 'core/constant/constant.dart';
 import 'core/network/dio/base_dio.dart';
@@ -51,7 +56,7 @@ Future<void> _registerSingletons() async {
       baseUrl,
       defaultHeaders: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
+        // "Authorization": "Bearer $token",
       },
     ),
   );
@@ -65,12 +70,18 @@ void _registerDataSources() {
   getIt.registerSingleton<ProductsSource>(ProductsSourceImplement(getIt()));
   getIt.registerSingleton<CartSource>(CartSourceImplement(getIt()));
   getIt.registerSingleton<LoginSource>(LoginSourceImpl(getIt()));
+  getIt.registerSingleton<FullfilmentCenterSource>(
+    FullfilmentCenterSourceImplement(getIt()),
+  );
 }
 
 void _registerRepos() {
   getIt.registerSingleton<ProductsRepo>(ProductsRepoImpl(getIt()));
   getIt.registerSingleton<CartRepo>(CartRepoImpl(getIt()));
   getIt.registerSingleton<LoginRepo>(LoginRepoImpl(getIt()));
+  getIt.registerSingleton<FullfilmentCenterRepo>(
+    FullfilmentCenterRepoImpelement(getIt()),
+  );
 }
 
 void _registerFactory() {
@@ -79,4 +90,7 @@ void _registerFactory() {
   );
   getIt.registerFactory<CartCubit>(() => CartCubit(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
+  getIt.registerFactory<FullfilmentCenterCubit>(
+    () => FullfilmentCenterCubit(getIt()),
+  );
 }
