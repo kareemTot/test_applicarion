@@ -66,4 +66,18 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     productPrice = productDetailsModel?.product?.price?.list?.formattedAmount;
     emit(RemoveSelectedVariation());
   }
+
+  Future<void> addItemToCart({
+    required String productId,
+    String? fullfilmentCenterId,
+  }) async {
+    emit(AddItemToCartLoadingState());
+    final result = await _repo.addItemToCart(
+      productId: productId,
+      fullfilmentCenterId: fullfilmentCenterId,
+    );
+    result.fold((l) => emit(AddItemToCartFailureState(l.message)), (r) {
+      emit(AddItemToCartSuccessState());
+    });
+  }
 }

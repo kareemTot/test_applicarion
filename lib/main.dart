@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:test_applicarion/di.dart';
@@ -11,6 +13,7 @@ void main() async {
   await initDependencyInjection();
 
   final token = await SharedPref().get(tokenValue);
+  log("token: $token");
   runApp(MyApp(token: token));
 }
 

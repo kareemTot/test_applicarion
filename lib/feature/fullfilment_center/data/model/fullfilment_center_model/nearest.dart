@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
-
 import 'address.dart';
-import 'nearest.dart';
 
 class Nearest extends Equatable {
   final String? id;

@@ -13,6 +13,7 @@ import 'package:test_applicarion/feature/fullfilment_center/data/source/implemen
 import 'package:test_applicarion/feature/fullfilment_center/domain/repo/fullfilment_center_repo.dart';
 import 'package:test_applicarion/feature/fullfilment_center/presentation/cubit/fullfilment_center_cubit.dart';
 import 'package:test_applicarion/feature/products/Data/source/base/products_source.dart';
+import 'core/cache/app_shared_pref.dart';
 import 'core/constant/constant.dart';
 import 'core/network/dio/base_dio.dart';
 import 'core/network/dio/dio_client.dart';
@@ -37,6 +38,7 @@ Future<void> initDependencyInjection() async {
 }
 
 Future<void> _registerSingletons() async {
+  final token = await SharedPref().get(tokenValue);
   getIt.registerLazySingleton<GlobalKey<NavigatorState>>(
     () => GlobalKey<NavigatorState>(),
   );
@@ -56,7 +58,7 @@ Future<void> _registerSingletons() async {
       baseUrl,
       defaultHeaders: {
         "Content-Type": "application/json",
-        // "Authorization": "Bearer $token",
+        "Authorization": "Bearer $token",
       },
     ),
   );

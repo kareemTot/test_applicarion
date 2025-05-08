@@ -25,7 +25,7 @@ class LoginCubit extends Cubit<LoginState> {
       );
       result.fold((l) => emit(LoginFailureState(l.message)), (r) async {
         await SharedPref().set(tokenValue, r.accessToken!);
-        log("token: ${r.accessToken}");
+
         emit(LoginSuccessState());
       });
     }
