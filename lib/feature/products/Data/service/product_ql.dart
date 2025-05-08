@@ -26,6 +26,24 @@ query Products(\$first: Int, \$after: String , \$filter: String) {
                 sortOrder
                 cultureName
             }
+             availabilityData {
+                availableQuantity
+                isBuyable
+                isAvailable
+                isInStock
+                isActive
+                isTrackInventory
+                inventories {
+                    inStockQuantity
+                    reservedQuantity
+                    fulfillmentCenterId
+                    fulfillmentCenterName
+                    allowPreorder
+                    allowBackorder
+                    preorderAvailabilityDate
+                    backorderAvailabilityDate
+                }
+            }
         }
         totalCount
         pageInfo {
