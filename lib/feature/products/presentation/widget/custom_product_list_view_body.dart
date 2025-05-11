@@ -1,7 +1,7 @@
 import 'dart:developer';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import '../../../../core/widget/custom_out_of_stock_widget.dart';
 import '../../../cart/Data/service/add_item_to_cart_mut.dart';
 import '../view/product_details_scren.dart';
 
@@ -28,9 +28,9 @@ class CustomProductListViewBody extends StatelessWidget {
     return Stack(
       children: [
         AbsorbPointer(
-          absorbing: isOutOfStock,
+          absorbing: !isOutOfStock,
           child: Opacity(
-            opacity: isOutOfStock ? 0.5 : 1.0,
+            opacity: !isOutOfStock ? 0.5 : 1.0,
             child: ListTile(
               onTap: () {
                 Navigator.push(
@@ -54,7 +54,7 @@ class CustomProductListViewBody extends StatelessWidget {
                 builder:
                     (runMutation, result) => GestureDetector(
                       onTap:
-                          isOutOfStock
+                          !isOutOfStock
                               ? null
                               : () {
                                 log(productId);
@@ -68,7 +68,7 @@ class CustomProductListViewBody extends StatelessWidget {
                               : Icon(
                                 Icons.shopping_cart,
                                 color:
-                                    isOutOfStock ? Colors.grey : Colors.orange,
+                                    !isOutOfStock ? Colors.grey : Colors.orange,
                               ),
                     ),
               ),
@@ -88,38 +88,7 @@ class CustomProductListViewBody extends StatelessWidget {
           ),
         ),
 
-        if (isOutOfStock)
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  color: Colors.black.withValues(alpha: 0.3),
-                  child: Center(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Text(
-                        "OUT OF STOCK",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+        if (!isOutOfStock) CustomOutOfStockWidget(),
       ],
     );
   }

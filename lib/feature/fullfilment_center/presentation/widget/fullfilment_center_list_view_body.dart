@@ -7,23 +7,27 @@ class FullfilmentCenterListViewBody extends StatelessWidget {
   final Color borderColor;
   final String name;
   final String line1;
+  final void Function()? onDoubleTap;
   const FullfilmentCenterListViewBody({
     super.key,
     this.onTap,
     required this.borderColor,
     required this.name,
     required this.line1,
+    this.onDoubleTap,
   });
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      onDoubleTap: () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => BottomNavBarScreen()),
-        );
-      },
+      onDoubleTap:
+          onDoubleTap ??
+          () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => BottomNavBarScreen()),
+            );
+          },
       child: AnimatedContainer(
         margin: EdgeInsets.only(bottom: 16),
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

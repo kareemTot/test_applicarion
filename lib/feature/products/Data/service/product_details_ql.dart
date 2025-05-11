@@ -1,5 +1,5 @@
 const String productDetailsQl = '''
-query Product(\$id: String!) {
+query Product(\$id:String!) {
     product(id: \$id, storeId: "alkhbaz") {
         id
         code
@@ -91,6 +91,16 @@ query Product(\$id: String!) {
                 isInStock
                 isActive
                 isTrackInventory
+                inventories {
+                    inStockQuantity
+                    reservedQuantity
+                    fulfillmentCenterId
+                    fulfillmentCenterName
+                    allowPreorder
+                    allowBackorder
+                    preorderAvailabilityDate
+                    backorderAvailabilityDate
+                }
             }
             prices {
                 discountPercent
@@ -168,6 +178,24 @@ query Product(\$id: String!) {
                 promotionId
                 amount
                 amountWithTax
+            }
+        }
+        availabilityData {
+            availableQuantity
+            isBuyable
+            isAvailable
+            isInStock
+            isActive
+            isTrackInventory
+            inventories {
+                inStockQuantity
+                reservedQuantity
+                fulfillmentCenterId
+                fulfillmentCenterName
+                allowPreorder
+                allowBackorder
+                preorderAvailabilityDate
+                backorderAvailabilityDate
             }
         }
     }

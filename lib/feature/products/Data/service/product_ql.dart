@@ -17,7 +17,16 @@ query Products(\$first: Int, \$after: String , \$filter: String) {
             brandName
             hasVariations
             inWishlist
-               images {
+            category {
+                name
+                id
+                level
+                parent {
+                    name
+                    id
+                }
+            }
+            images {
                 id
                 name
                 group
@@ -26,7 +35,7 @@ query Products(\$first: Int, \$after: String , \$filter: String) {
                 sortOrder
                 cultureName
             }
-             availabilityData {
+            availabilityData {
                 availableQuantity
                 isBuyable
                 isAvailable
@@ -42,6 +51,60 @@ query Products(\$first: Int, \$after: String , \$filter: String) {
                     allowBackorder
                     preorderAvailabilityDate
                     backorderAvailabilityDate
+                }
+            }
+            variations {
+                id
+                name
+                code
+                productType
+                minQuantity
+                maxQuantity
+                slug
+                availabilityData {
+                    availableQuantity
+                    isBuyable
+                    isAvailable
+                    isInStock
+                    isActive
+                    isTrackInventory
+                    inventories {
+                        inStockQuantity
+                        reservedQuantity
+                        fulfillmentCenterId
+                        fulfillmentCenterName
+                        allowPreorder
+                        allowBackorder
+                        preorderAvailabilityDate
+                        backorderAvailabilityDate
+                    }
+                }
+                images {
+                    id
+                    name
+                    group
+                    url
+                    relativeUrl
+                    sortOrder
+                    cultureName
+                }
+                price {
+                    discountPercent
+                    currency
+                    validFrom
+                    startDate
+                    validUntil
+                    endDate
+                    pricelistId
+                    minQuantity
+                    list {
+                        amount
+                        decimalDigits
+                        formattedAmount
+                        formattedAmountWithoutCurrency
+                        formattedAmountWithoutPoint
+                        formattedAmountWithoutPointAndCurrency
+                    }
                 }
             }
         }

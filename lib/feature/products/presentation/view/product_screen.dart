@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../../../core/constant/constant.dart';
+import '../../../fullfilment_center/presentation/view/fullfilment_center_screen.dart';
 import '../../Data/service/product_ql.dart';
 import '../widget/custom_product_list_view_body.dart';
 
@@ -36,7 +37,22 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Products Screen')),
+      appBar: AppBar(
+        title: const Text('Products Screen'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              fullfilmentCenterDialog(
+                context,
+                onDoubleTap: () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+            icon: const Icon(Icons.location_on, color: Colors.orange, size: 30),
+          ),
+        ],
+      ),
       body: Query(
         options: QueryOptions(
           document: gql(productQl),

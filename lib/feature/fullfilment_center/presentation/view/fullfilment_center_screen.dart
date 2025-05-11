@@ -9,7 +9,10 @@ import 'package:test_applicarion/feature/fullfilment_center/presentation/cubit/f
 import '../../../../core/constant/constant.dart';
 import '../widget/fullfilment_center_list_view_body.dart';
 
-void fullfilmentCenterDialog(BuildContext context) {
+void fullfilmentCenterDialog(
+  BuildContext context, {
+  void Function()? onDoubleTap,
+}) {
   showDialog(
     context: context,
     builder: (context) {
@@ -33,6 +36,7 @@ void fullfilmentCenterDialog(BuildContext context) {
                         child: ListView.builder(
                           itemBuilder:
                               (context, index) => FullfilmentCenterListViewBody(
+                                onDoubleTap: onDoubleTap,
                                 line1:
                                     cubit
                                         .fullfilmentCenterModel

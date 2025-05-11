@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:test_applicarion/feature/products/Data/Model/product_details_model/availability_data.dart';
 
 import 'image.dart';
 import 'price.dart';
@@ -26,6 +27,7 @@ class Product extends Equatable {
   final List<Variation>? variations;
   final dynamic description;
   final dynamic minVariationPrice;
+  final AvailabilityData? availabilityData;
 
   const Product({
     this.id,
@@ -49,6 +51,7 @@ class Product extends Equatable {
     this.variations,
     this.description,
     this.minVariationPrice,
+    this.availabilityData,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -85,6 +88,10 @@ class Product extends Equatable {
             .toList(),
     description: json['description'] as dynamic,
     minVariationPrice: json['minVariationPrice'] as dynamic,
+    availabilityData:
+        json['availabilityData'] == null
+            ? null
+            : AvailabilityData.fromJson(json['price'] as Map<String, dynamic>),
   );
 
   Map<String, dynamic> toJson() => {

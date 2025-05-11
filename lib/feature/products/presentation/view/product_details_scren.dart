@@ -61,6 +61,7 @@ class _ProductDetailsScrenState extends State<ProductDetailsScren> {
                 state is ProductDetailsLoading
                     ? const Center(child: CircularProgressIndicator())
                     : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Image.network(
                           cubit.productImage ??
@@ -185,8 +186,8 @@ class _ProductDetailsScrenState extends State<ProductDetailsScren> {
                             ],
                           ),
                         ),
-                        Spacer(),
 
+                        Spacer(),
                         state is AddItemToCartLoadingState
                             ? Center(child: CircularProgressIndicator())
                             : Padding(
