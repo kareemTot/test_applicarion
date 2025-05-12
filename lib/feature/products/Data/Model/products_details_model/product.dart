@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:test_applicarion/feature/products/Data/Model/product_details_model/availability_data.dart';
+import 'package:test_applicarion/feature/products/Data/Model/products_details_model/availability_data.dart';
 
 import 'image.dart';
 import 'price.dart';

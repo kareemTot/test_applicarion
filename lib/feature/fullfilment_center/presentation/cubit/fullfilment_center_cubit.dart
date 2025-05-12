@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:test_applicarion/feature/fullfilment_center/domain/repo/fullfilment_center_repo.dart';
 
-import '../../data/model/fullfilment_center_model/fullfilment_center_model.dart';
+import '../../data/model/fullfilment_centers_model/fullfilment_center_model.dart';
 part 'fullfilment_center_state.dart';
 
 class FullfilmentCenterCubit extends Cubit<FullfilmentCenterState> {

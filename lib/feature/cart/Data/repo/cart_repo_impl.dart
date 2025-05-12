@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:test_applicarion/core/network/errors/failure.dart';
-import 'package:test_applicarion/feature/cart/Data/Model/cart_model/cart_model.dart';
-import 'package:test_applicarion/feature/cart/Data/Model/update_order_dynamic_property_model/update_order_dynamic_property_model.dart';
-import 'package:test_applicarion/feature/cart/Data/source/base/cart_source.dart';
-import 'package:test_applicarion/feature/cart/domain/repo/cart_repo.dart';
+import '../../../../../core/network/network.dart';
+import '../../domain/repo/repo.dart';
+import '../Model/carts_model/cart_model.dart';
+import '../Model/updated_orders_dynamic_property_model/update_order_dynamic_property_model.dart';
+import '../data.dart';
 
 class CartRepoImpl implements CartRepo {
   final CartSource _source;

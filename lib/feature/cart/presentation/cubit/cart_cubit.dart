@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:test_applicarion/feature/cart/domain/repo/cart_repo.dart';
-import '../../Data/Model/cart_model/cart_model.dart';
+import '../../Data/Model/carts_model/cart_model.dart';
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {

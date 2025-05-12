@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'extended_price.dart';
 
-class Item extends Equatable {
+class CartItem extends Equatable {
   final int? inStockQuantity;
   final String? warehouseLocation;
   final String? catalogId;
@@ -29,7 +29,7 @@ class Item extends Equatable {
   final String? fulfillmentCenterName;
   final ExtendedPrice? extendedPrice;
 
-  const Item({
+  const CartItem({
     this.inStockQuantity,
     this.warehouseLocation,
     this.catalogId,
@@ -57,7 +57,7 @@ class Item extends Equatable {
     this.extendedPrice,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
     inStockQuantity: json['inStockQuantity'] as int?,
     warehouseLocation: json['warehouseLocation'] as String?,
     catalogId: json['catalogId'] as String?,

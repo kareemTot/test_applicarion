@@ -1,10 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import 'item.dart';
-import 'shipping_price.dart';
-import 'sub_total.dart';
-import 'sub_total_with_tax.dart';
-import 'total.dart';
+import '../refresh_cart_model.dart';
 
 class RefreshCart extends Equatable {
   final String? id;
@@ -35,7 +30,7 @@ class RefreshCart extends Equatable {
   final SubTotalWithTax? subTotalWithTax;
   final ShippingPrice? shippingPrice;
   final List<dynamic>? shipments;
-  final List<Item>? items;
+  final List<RefreshCartItem>? items;
 
   const RefreshCart({
     this.id,
@@ -116,7 +111,7 @@ class RefreshCart extends Equatable {
     shipments: json['shipments'] as List<dynamic>?,
     items:
         (json['items'] as List<dynamic>?)
-            ?.map((e) => Item.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => RefreshCartItem.fromJson(e as Map<String, dynamic>))
             .toList(),
   );
 

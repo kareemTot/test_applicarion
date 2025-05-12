@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Item extends Equatable {
+class RefreshCartItem extends Equatable {
   final int? inStockQuantity;
   final String? warehouseLocation;
   final bool? isValid;
@@ -35,7 +35,7 @@ class Item extends Equatable {
   final String? fulfillmentCenterId;
   final String? fulfillmentCenterName;
 
-  const Item({
+  const RefreshCartItem({
     this.inStockQuantity,
     this.warehouseLocation,
     this.isValid,
@@ -71,44 +71,45 @@ class Item extends Equatable {
     this.fulfillmentCenterName,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
-    inStockQuantity: json['inStockQuantity'] as int?,
-    warehouseLocation: json['warehouseLocation'] as String?,
-    isValid: json['isValid'] as bool?,
-    catalogId: json['catalogId'] as String?,
-    categoryId: json['categoryId'] as String?,
-    createdDate:
-        json['createdDate'] == null
-            ? null
-            : DateTime.parse(json['createdDate'] as String),
-    height: json['height'] as dynamic,
-    id: json['id'] as String?,
-    imageUrl: json['imageUrl'] as String?,
-    isGift: json['isGift'] as bool?,
-    isReadOnly: json['isReadOnly'] as bool?,
-    isReccuring: json['isReccuring'] as bool?,
-    languageCode: json['languageCode'] as dynamic,
-    length: json['length'] as dynamic,
-    measureUnit: json['measureUnit'] as String?,
-    name: json['name'] as String?,
-    note: json['note'] as dynamic,
-    objectType: json['objectType'] as String?,
-    productId: json['productId'] as String?,
-    productType: json['productType'] as String?,
-    quantity: json['quantity'] as int?,
-    requiredShipping: json['requiredShipping'] as bool?,
-    shipmentMethodCode: json['shipmentMethodCode'] as dynamic,
-    sku: json['sku'] as String?,
-    taxPercentRate: json['taxPercentRate'] as int?,
-    taxType: json['taxType'] as String?,
-    thumbnailImageUrl: json['thumbnailImageUrl'] as dynamic,
-    volumetricWeight: json['volumetricWeight'] as dynamic,
-    weight: json['weight'] as dynamic,
-    weightUnit: json['weightUnit'] as String?,
-    width: json['width'] as dynamic,
-    fulfillmentCenterId: json['fulfillmentCenterId'] as String?,
-    fulfillmentCenterName: json['fulfillmentCenterName'] as String?,
-  );
+  factory RefreshCartItem.fromJson(Map<String, dynamic> json) =>
+      RefreshCartItem(
+        inStockQuantity: json['inStockQuantity'] as int?,
+        warehouseLocation: json['warehouseLocation'] as String?,
+        isValid: json['isValid'] as bool?,
+        catalogId: json['catalogId'] as String?,
+        categoryId: json['categoryId'] as String?,
+        createdDate:
+            json['createdDate'] == null
+                ? null
+                : DateTime.parse(json['createdDate'] as String),
+        height: json['height'] as dynamic,
+        id: json['id'] as String?,
+        imageUrl: json['imageUrl'] as String?,
+        isGift: json['isGift'] as bool?,
+        isReadOnly: json['isReadOnly'] as bool?,
+        isReccuring: json['isReccuring'] as bool?,
+        languageCode: json['languageCode'] as dynamic,
+        length: json['length'] as dynamic,
+        measureUnit: json['measureUnit'] as String?,
+        name: json['name'] as String?,
+        note: json['note'] as dynamic,
+        objectType: json['objectType'] as String?,
+        productId: json['productId'] as String?,
+        productType: json['productType'] as String?,
+        quantity: json['quantity'] as int?,
+        requiredShipping: json['requiredShipping'] as bool?,
+        shipmentMethodCode: json['shipmentMethodCode'] as dynamic,
+        sku: json['sku'] as String?,
+        taxPercentRate: json['taxPercentRate'] as int?,
+        taxType: json['taxType'] as String?,
+        thumbnailImageUrl: json['thumbnailImageUrl'] as dynamic,
+        volumetricWeight: json['volumetricWeight'] as dynamic,
+        weight: json['weight'] as dynamic,
+        weightUnit: json['weightUnit'] as String?,
+        width: json['width'] as dynamic,
+        fulfillmentCenterId: json['fulfillmentCenterId'] as String?,
+        fulfillmentCenterName: json['fulfillmentCenterName'] as String?,
+      );
 
   Map<String, dynamic> toJson() => {
     'inStockQuantity': inStockQuantity,
