@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:test_applicarion/feature/products/domin/repo/products_repo.dart';
-import '../../Data/Model/product_details_model/product_details_model.dart';
+import '../../Data/Model/products_details_model/product_details_model.dart';
 part 'product_details_state.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {

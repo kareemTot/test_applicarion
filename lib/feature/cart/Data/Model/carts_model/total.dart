@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class ShippingPrice extends Equatable {
+class CartTotal extends Equatable {
   final int? amount;
   final int? decimalDigits;
   final String? formattedAmount;
@@ -8,7 +8,7 @@ class ShippingPrice extends Equatable {
   final String? formattedAmountWithoutPoint;
   final String? formattedAmountWithoutPointAndCurrency;
 
-  const ShippingPrice({
+  const CartTotal({
     this.amount,
     this.decimalDigits,
     this.formattedAmount,
@@ -17,7 +17,7 @@ class ShippingPrice extends Equatable {
     this.formattedAmountWithoutPointAndCurrency,
   });
 
-  factory ShippingPrice.fromJson(Map<String, dynamic> json) => ShippingPrice(
+  factory CartTotal.fromJson(Map<String, dynamic> json) => CartTotal(
     amount: json['amount'] as int?,
     decimalDigits: json['decimalDigits'] as int?,
     formattedAmount: json['formattedAmount'] as String?,

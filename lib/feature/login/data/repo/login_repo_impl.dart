@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:test_applicarion/core/network/errors/failure.dart';
-import 'package:test_applicarion/feature/login/data/model/login_model.dart';
-import 'package:test_applicarion/feature/login/data/source/base/login_source.dart';
-import 'package:test_applicarion/feature/login/domain/login_repo.dart';
+import '../../../../core/network/network.dart';
+import '../../domain/domain.dart';
+import '../data.dart';
+import '../model/login_model.dart';
 
 class LoginRepoImpl implements LoginRepo {
   final LoginSource _source;

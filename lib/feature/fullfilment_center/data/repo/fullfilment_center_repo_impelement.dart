@@ -1,11 +1,9 @@
 import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
-import 'package:test_applicarion/core/network/errors/failure.dart';
-import 'package:test_applicarion/feature/fullfilment_center/data/source/base/fullfilment_center_source.dart';
-import 'package:test_applicarion/feature/fullfilment_center/domain/repo/fullfilment_center_repo.dart';
 
-import '../model/fullfilment_center_model/fullfilment_center_model.dart';
+import '../../../../core/network/network.dart';
+import '../../domain/repo/repo.dart';
+import '../data.dart';
 
 class FullfilmentCenterRepoImpelement implements FullfilmentCenterRepo {
   final FullfilmentCenterSource _source;

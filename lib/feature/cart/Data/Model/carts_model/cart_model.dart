@@ -1,12 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import 'item.dart';
-import 'shipment.dart';
-import 'shipping_price.dart';
-import 'shipping_total.dart';
-import 'sub_total.dart';
-import 'tax_total.dart';
-import 'total.dart';
+import '../../model.dart';
 
 class CartModel extends Equatable {
   final String? id;
@@ -21,13 +14,13 @@ class CartModel extends Equatable {
   final int? itemsCount;
   final int? itemsQuantity;
   final String? type;
-  final List<Item>? items;
-  final Total? total;
+  final List<CartItem>? items;
+  final CartTotal? total;
   final List<Shipment>? shipments;
-  final SubTotal? subTotal;
+  final CartSubTotal? subTotal;
   final TaxTotal? taxTotal;
   final List<dynamic>? taxDetails;
-  final ShippingPrice? shippingPrice;
+  final CartShippingPrice? shippingPrice;
   final ShippingTotal? shippingTotal;
   final List<dynamic>? discounts;
 
@@ -70,12 +63,12 @@ class CartModel extends Equatable {
     type: json['type'] as String?,
     items:
         (json['items'] as List<dynamic>?)
-            ?.map((e) => Item.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => CartItem.fromJson(e as Map<String, dynamic>))
             .toList(),
     total:
         json['total'] == null
             ? null
-            : Total.fromJson(json['total'] as Map<String, dynamic>),
+            : CartTotal.fromJson(json['total'] as Map<String, dynamic>),
     shipments:
         (json['shipments'] as List<dynamic>?)
             ?.map((e) => Shipment.fromJson(e as Map<String, dynamic>))
@@ -83,7 +76,7 @@ class CartModel extends Equatable {
     subTotal:
         json['subTotal'] == null
             ? null
-            : SubTotal.fromJson(json['subTotal'] as Map<String, dynamic>),
+            : CartSubTotal.fromJson(json['subTotal'] as Map<String, dynamic>),
     taxTotal:
         json['taxTotal'] == null
             ? null
@@ -92,7 +85,7 @@ class CartModel extends Equatable {
     shippingPrice:
         json['shippingPrice'] == null
             ? null
-            : ShippingPrice.fromJson(
+            : CartShippingPrice.fromJson(
               json['shippingPrice'] as Map<String, dynamic>,
             ),
     shippingTotal:
