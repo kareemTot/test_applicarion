@@ -24,9 +24,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     result.fold((l) => emit(ProductDetailsFailureState(l.message)), (r) {
       productDetailsModel = r;
       log("productId:$productId");
-      log(
-        "========================= ${productDetailsModel?.product?.variations.toString() ?? ""}",
-      );
       emit(ProductDetailsSuccessState(r));
     });
   }

@@ -8,6 +8,7 @@ import 'package:test_applicarion/di.dart';
 import 'package:test_applicarion/feature/cart/presentation/widget/custom_row_text.dart';
 import 'package:test_applicarion/feature/products/presentation/cubit/product_details_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/widget/custom_out_of_stock_container_text.dart';
 import '../widget/custom_variation_list_view_body.dart';
 
 class ProductDetailsScren extends StatefulWidget {
@@ -63,18 +64,34 @@ class _ProductDetailsScrenState extends State<ProductDetailsScren> {
                     : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.network(
-                          cubit.productImage ??
-                              cubit
-                                  .productDetailsModel
-                                  ?.product
-                                  ?.images
-                                  ?.firstOrNull
-                                  ?.url ??
-                              image,
-                          width: double.infinity,
-                          height: 200,
-                          fit: BoxFit.fill,
+                        Stack(
+                          children: [
+                            Image.network(
+                              cubit.productImage ??
+                                  cubit
+                                      .productDetailsModel
+                                      ?.product
+                                      ?.images
+                                      ?.firstOrNull
+                                      ?.url ??
+                                  image,
+                              width: double.infinity,
+                              height: 200,
+                              fit: BoxFit.fill,
+                            ),
+                            Visibility(
+                              visible:
+                                  !cubit
+                                      .productDetailsModel!
+                                      .product!
+                                      .availabilityData!
+                                      .isInStock!,
+                              child: CustomOutOfStockContainerText(
+                                radius: 0,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
                         ),
 
                         Padding(
@@ -130,6 +147,13 @@ class _ProductDetailsScrenState extends State<ProductDetailsScren> {
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             return CustomVariationListViewBody(
+                                              isOutOfStock:
+                                                  !cubit
+                                                      .productDetailsModel!
+                                                      .product!
+                                                      .variations![index]
+                                                      .availabilityData!
+                                                      .isInStock!,
                                               onTap: () {
                                                 log(index.toString());
                                                 cubit.toggleVariationSelection(
@@ -199,15 +223,32 @@ class _ProductDetailsScrenState extends State<ProductDetailsScren> {
                                 height: 44,
                                 text: "Add To Cart",
                                 onPressed: () {
-                                  cubit.addItemToCart(
-                                    productId:
-                                        cubit.productDetailsModel?.product?.id
-                                            .toString() ??
-                                        "",
-                                    fullfilmentCenterId: _fullfilmentCenterId,
-                                  );
+                                  !cubit
+                                          .productDetailsModel!
+                                          .product!
+                                          .availabilityData!
+                                          .isInStock!
+                                      ? null
+                                      : cubit.addItemToCart(
+                                        productId:
+                                            cubit
+                                                .productDetailsModel
+                                                ?.product
+                                                ?.id
+                                                .toString() ??
+                                            "",
+                                        fullfilmentCenterId:
+                                            _fullfilmentCenterId,
+                                      );
                                 },
-                                containerColor: Colors.orange,
+                                containerColor:
+                                    !cubit
+                                            .productDetailsModel!
+                                            .product!
+                                            .availabilityData!
+                                            .isInStock!
+                                        ? Colors.grey
+                                        : Colors.orange,
                               ),
                             ),
                       ],

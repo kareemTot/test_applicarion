@@ -91,7 +91,9 @@ class Product extends Equatable {
     availabilityData:
         json['availabilityData'] == null
             ? null
-            : AvailabilityData.fromJson(json['price'] as Map<String, dynamic>),
+            : AvailabilityData.fromJson(
+              json['availabilityData'] as Map<String, dynamic>,
+            ),
   );
 
   Map<String, dynamic> toJson() => {

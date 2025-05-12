@@ -88,7 +88,17 @@ class CustomProductListViewBody extends StatelessWidget {
           ),
         ),
 
-        if (!isOutOfStock) CustomOutOfStockWidget(),
+        if (!isOutOfStock)
+          CustomOutOfStockWidget(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailsScren(id: productId),
+                ),
+              );
+            },
+          ),
       ],
     );
   }
