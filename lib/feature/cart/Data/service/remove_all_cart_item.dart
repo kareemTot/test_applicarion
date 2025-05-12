@@ -4,7 +4,7 @@ mutation ClearCart {
         command: { 
             storeId: "alkhbaz",
             userId: "5f5d15fd-39e2-4a8d-93d8-727208148be" 
-            cartId: "0b5a5463-5624-42e2-9678-afb75ed41e61"
+            cartId: "1364befa-b189-4820-87fa-27378a6ec09d"
             cartType: "cart"
             cartName: "DefaultCart"}
     ) {

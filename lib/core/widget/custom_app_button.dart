@@ -33,7 +33,10 @@ class CustomAppButton extends StatelessWidget {
       ),
       child: MaterialButton(
         onPressed: onPressed,
-        child: Text(text, style: TextStyle(fontSize: 20, color: Colors.white)),
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 20, color: textColor ?? Colors.white),
+        ),
       ),
     );
   }

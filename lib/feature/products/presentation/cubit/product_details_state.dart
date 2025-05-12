@@ -35,3 +35,12 @@ final class RemoveSelectedVariation extends ProductDetailsState {
   @override
   List<Object> get props => [];
 }
+
+final class AddItemToCartLoadingState extends ProductDetailsState {}
+
+final class AddItemToCartSuccessState extends ProductDetailsState {}
+
+final class AddItemToCartFailureState extends ProductDetailsState {
+  final String failure;
+  const AddItemToCartFailureState(this.failure);
+}

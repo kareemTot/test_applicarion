@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:test_applicarion/core/network/errors/failure.dart';
+import 'package:test_applicarion/feature/products/Data/Model/add_item_to_cart_model/add_item_to_cart_model.dart';
 import 'package:test_applicarion/feature/products/Data/source/base/products_source.dart';
 import '../../domin/repo/products_repo.dart';
 import '../Model/product_details_model/product_details_model.dart';
@@ -20,6 +21,26 @@ class ProductsRepoImpl implements ProductsRepo {
       }
       log(" Data in repo ${ProductDetailsModel.fromJson(result).toString()}");
       return Right(ProductDetailsModel.fromJson(result));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AddItemToCartModel>> addItemToCart({
+    required String productId,
+    String? fullfilmentCenterId,
+  }) async {
+    try {
+      final result = await source.addItemToCart(
+        productId: productId,
+        fullfilmentCenterId: fullfilmentCenterId,
+      );
+      if (result['addItem'] == null) {
+        return Left(ServerFailure(result['error']));
+      }
+      log(" Data in repo ${AddItemToCartModel.fromJson(result).toString()}");
+      return Right(AddItemToCartModel.fromJson(result));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

@@ -8,6 +8,7 @@ class CustomTextFormFiled extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final Widget? suffixIcon;
+  final Color? color;
   const CustomTextFormFiled({
     super.key,
     required this.controller,
@@ -15,6 +16,7 @@ class CustomTextFormFiled extends StatelessWidget {
     this.validator,
     this.obscureText = false,
     this.suffixIcon,
+    this.color,
   });
 
   @override
@@ -28,9 +30,9 @@ class CustomTextFormFiled extends StatelessWidget {
         suffixIcon: suffixIcon,
         hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
         errorBorder: outLineInputBorder(color: Colors.red),
-        enabledBorder: outLineInputBorder(),
-        focusedBorder: outLineInputBorder(),
-        disabledBorder: outLineInputBorder(),
+        enabledBorder: outLineInputBorder(color: color),
+        focusedBorder: outLineInputBorder(color: color),
+        disabledBorder: outLineInputBorder(color: color),
         focusedErrorBorder: outLineInputBorder(color: Colors.red),
       ),
     );

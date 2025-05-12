@@ -24,6 +24,14 @@ query Product(\$id:String!) {
             endDate
             pricelistId
             minQuantity
+            list {
+                amount
+                decimalDigits
+                formattedAmount
+                formattedAmountWithoutCurrency
+                formattedAmountWithoutPoint
+                formattedAmountWithoutPointAndCurrency
+            }
         }
         descriptions {
             id
@@ -83,6 +91,16 @@ query Product(\$id:String!) {
                 isInStock
                 isActive
                 isTrackInventory
+                inventories {
+                    inStockQuantity
+                    reservedQuantity
+                    fulfillmentCenterId
+                    fulfillmentCenterName
+                    allowPreorder
+                    allowBackorder
+                    preorderAvailabilityDate
+                    backorderAvailabilityDate
+                }
             }
             prices {
                 discountPercent
@@ -162,7 +180,25 @@ query Product(\$id:String!) {
                 amountWithTax
             }
         }
+        availabilityData {
+            availableQuantity
+            isBuyable
+            isAvailable
+            isInStock
+            isActive
+            isTrackInventory
+            inventories {
+                inStockQuantity
+                reservedQuantity
+                fulfillmentCenterId
+                fulfillmentCenterName
+                allowPreorder
+                allowBackorder
+                preorderAvailabilityDate
+                backorderAvailabilityDate
+            }
+        }
     }
 }
 
- ''';
+''';

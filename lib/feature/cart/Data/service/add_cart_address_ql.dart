@@ -4,7 +4,7 @@ mutation AddOrUpdateCartShipment (\$cityName :OptionalString , \$countryName : O
         command: {
             storeId: "alkhbaz"
             userId: "5f5d15fd-39e2-4a8d-93d8-727208148bea"
-            cartId: "2354c681-e7f7-45fe-bbf6-e98efbef21e8"
+            cartId: "1364befa-b189-4820-87fa-27378a6ec09d"
             cartType: "cart"
             cartName: "DefaultCart"
             currencyCode: "EGP"

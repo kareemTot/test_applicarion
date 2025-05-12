@@ -49,6 +49,7 @@ class Price extends Equatable {
     'endDate': endDate,
     'pricelistId': pricelistId,
     'minQuantity': minQuantity,
+    'list': list?.toJson(),
   };
 
   @override
@@ -62,6 +63,7 @@ class Price extends Equatable {
       endDate,
       pricelistId,
       minQuantity,
+      list,
     ];
   }
 }

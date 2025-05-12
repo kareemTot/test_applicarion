@@ -1,10 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:test_applicarion/feature/cart/Data/service/add_item_to_cart_mut.dart';
 import '../../../../core/constant/constant.dart';
+import '../../../fullfilment_center/presentation/view/fullfilment_center_screen.dart';
 import '../../Data/service/product_ql.dart';
-import 'product_details_scren.dart';
+import '../widget/custom_product_list_view_body.dart';
 
 class ProductScreen extends StatefulWidget {
   final String category;
@@ -37,7 +37,22 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Products Screen')),
+      appBar: AppBar(
+        title: const Text('Products Screen'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              fullfilmentCenterDialog(
+                context,
+                onDoubleTap: () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+            icon: const Icon(Icons.location_on, color: Colors.orange, size: 30),
+          ),
+        ],
+      ),
       body: Query(
         options: QueryOptions(
           document: gql(productQl),
@@ -127,76 +142,19 @@ class _ProductScreenState extends State<ProductScreen> {
                     itemCount: loadedProducts.length + (hasNextPage ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index < loadedProducts.length) {
-                        return ListTile(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => ProductDetailsScren(
-                                      id:
-                                          loadedProducts[index]['id']
-                                              .toString(),
-                                    ),
-                              ),
-                            );
-                          },
-                          trailing: Mutation(
-                            options: MutationOptions(
-                              document: gql(addItemToCartMut),
-                              variables: {
-                                'id': loadedProducts[index]['id'].toString(),
-                              },
-                              onCompleted: (data) {
-                                log("item added to cart and result is $data");
-                              },
-                              onError: (error) {
-                                log("error: $error");
-                              },
-                            ),
-                            builder:
-                                (runMutation, result) => GestureDetector(
-                                  onTap: () {
-                                    log("${loadedProducts[index]['id']}");
-                                    log("$runMutation");
-                                    log("result: $result");
-                                    runMutation({
-                                      'id':
-                                          loadedProducts[index]['id']
-                                              .toString(),
-                                    });
-                                  },
-                                  child:
-                                      result!.isLoading
-                                          ? const CircularProgressIndicator()
-                                          : Icon(
-                                            Icons.shopping_cart,
-                                            color: Colors.orange,
-                                          ),
-                                ),
-                          ),
-                          title: Text(loadedProducts[index]['name'].toString()),
-                          subtitle: Row(
-                            spacing: 6,
-                            children: [
-                              Text(loadedProducts[index]['code']),
-                              Text(
-                                "Quantity ${loadedProducts[index]['maxQuantity']}",
-                              ),
-                            ],
-                          ),
-                          leading: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Image.network(
+                        return CustomProductListViewBody(
+                          productId: loadedProducts[index]['id'].toString(),
+                          productName: loadedProducts[index]['name'].toString(),
+                          productCode: loadedProducts[index]['code'],
+                          productQuntity: loadedProducts[index]['maxQuantity'],
+                          productImage:
                               (loadedProducts[index]['images'] != null &&
                                       loadedProducts[index]['images']
                                           .isNotEmpty)
                                   ? loadedProducts[index]['images'][0]['url']
                                   : image,
-                              height: 80,
-                              width: 80,
-                            ),
-                          ),
+                          isOutOfStock:
+                              loadedProducts[index]['availabilityData']['isInStock'],
                         );
                       } else {
                         return Padding(

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:test_applicarion/feature/products/Data/Model/product_details_model/inventories.dart';
 
 class AvailabilityData extends Equatable {
   final int? availableQuantity;
@@ -7,6 +8,7 @@ class AvailabilityData extends Equatable {
   final bool? isInStock;
   final bool? isActive;
   final bool? isTrackInventory;
+  final List<Inventories>? inventories;
 
   const AvailabilityData({
     this.availableQuantity,
@@ -15,6 +17,7 @@ class AvailabilityData extends Equatable {
     this.isInStock,
     this.isActive,
     this.isTrackInventory,
+    this.inventories,
   });
 
   factory AvailabilityData.fromJson(Map<String, dynamic> json) {
@@ -25,6 +28,10 @@ class AvailabilityData extends Equatable {
       isInStock: json['isInStock'] as bool?,
       isActive: json['isActive'] as bool?,
       isTrackInventory: json['isTrackInventory'] as bool?,
+      inventories:
+          (json['inventories'] as List<dynamic>?)
+              ?.map((e) => Inventories.fromJson(e as Map<String, dynamic>))
+              .toList(),
     );
   }
 
@@ -35,6 +42,7 @@ class AvailabilityData extends Equatable {
     'isInStock': isInStock,
     'isActive': isActive,
     'isTrackInventory': isTrackInventory,
+    'inventories': inventories,
   };
 
   @override
@@ -46,6 +54,7 @@ class AvailabilityData extends Equatable {
       isInStock,
       isActive,
       isTrackInventory,
+      inventories,
     ];
   }
 }
