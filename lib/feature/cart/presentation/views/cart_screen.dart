@@ -16,7 +16,11 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cart Screen'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Cart Screen'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
       body: Query(
         options: QueryOptions(document: gql(cartQl)),
         builder: (result, {fetchMore, refetch}) {

@@ -10,7 +10,11 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Orders'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Orders'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
       body: Query(
         options: QueryOptions(document: gql(getAllUserOrdersQl)),
         builder: (result, {fetchMore, refetch}) {

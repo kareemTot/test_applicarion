@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:test_applicarion/feature/products/presentation/view/product_screen.dart';
-import '../service/category_ql.dart';
+import '../../service/category_ql.dart';
+import '../widget/custom_category_list_view_body_item.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -20,7 +20,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Alkhbaz Store Statistics')),
+      appBar: AppBar(
+        title: const Text('Alkhbaz Store Statistics'),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
       body: Query(
         options: QueryOptions(
           document: gql(getStoreData),
@@ -74,6 +78,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              spacing: 16,
               children: [
                 Text("Category Counter ${totalCount ?? 'Loading...'}"),
                 Text("Category Loaded ${loadedCategories.length}"),
@@ -120,38 +125,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           loadedCategories.length + (hasNextPage ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index < loadedCategories.length) {
-                          return ListTile(
-                            leading: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
-                              ),
-                              child: Image.network(
+                          return CustomCategoryListViewBodyItem(
+                            image:
                                 (loadedCategories[index]['images'] != null &&
                                         loadedCategories[index]['images']
                                             .isNotEmpty)
                                     ? loadedCategories[index]['images'][0]['url']
                                     : loadedCategories[0]['images'][0]['url'],
-                              ),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) => ProductScreen(
-                                        category: loadedCategories[index]['id'],
-                                        categoryName:
-                                            loadedCategories[index]['name'],
-                                      ),
-                                ),
-                              );
-                            },
-                            title: Align(
-                              alignment: AlignmentDirectional.topEnd,
-                              child: Text(
-                                loadedCategories[index]['name'].toString(),
-                              ),
-                            ),
+                            categoryId: loadedCategories[index]['id'],
+                            categoryName: loadedCategories[index]['name'],
                           );
                         } else {
                           return Padding(
