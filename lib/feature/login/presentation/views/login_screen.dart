@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_applicarion/core/constant/constant.dart';
+import 'package:test_applicarion/core/extensions/my_colors.dart';
 import 'package:test_applicarion/core/utils/app_images.dart';
 import 'package:test_applicarion/feature/login/presentation/cubit/login_cubit.dart';
 import '../../../../core/func/show_toast.dart';
@@ -14,6 +15,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myColor = Theme.of(context).extension<MyColors>()!;
     return BlocProvider(
       create: (context) => LoginCubit(getIt()),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -40,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   decoration: BoxDecoration(
-                    color: Colors.orange,
+                    color: myColor.primaryColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
@@ -51,10 +53,13 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       spacing: 16,
                       children: [
-                        Text("welcome back", style: TextStyle(fontSize: 20)),
+                        Text(
+                          "welcome back",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                         Text(
                           "please login to your account",
-                          style: TextStyle(fontSize: 16),
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                         CustomTextFormFiled(
                           color: Colors.white,
