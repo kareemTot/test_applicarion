@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/extensions/my_colors.dart';
+import 'package:test_applicarion/feature/category/presentation/theme/category_them.dart';
 import '../../../products/presentation/view/product_screen.dart';
 
 class CustomCategoryListViewBodyItem extends StatelessWidget {
@@ -16,14 +15,24 @@ class CustomCategoryListViewBodyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final myColor = Theme.of(context).extension<MyColors>()!;
-    return Card(
-      color: myColor.primaryColor!.withValues(alpha: 0.7),
-      elevation: 0.3,
-      shadowColor: myColor.primaryColor,
+    final category = Theme.of(context).extension<CategoryTheme>()!;
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: category.horizontalPadding!,
+        vertical: category.verticalPadding!,
+      ),
+      margin: EdgeInsets.only(bottom: category.margin!),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(category.borderRadius!),
+        color: category.backgroundColor,
+      ),
       child: ListTile(
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+        leading: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(category.imageRadius!),
+          ),
+          padding: EdgeInsets.symmetric(vertical: category.verticalPadding!),
           child: Image.network(image),
         ),
         onTap: () {
@@ -42,9 +51,11 @@ class CustomCategoryListViewBodyItem extends StatelessWidget {
           alignment: AlignmentDirectional.topEnd,
           child: Text(
             categoryName,
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium!.copyWith(color: Colors.white),
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: category.textColor,
+              fontSize: category.fontSize,
+              fontWeight: category.fontWeight,
+            ),
           ),
         ),
       ),

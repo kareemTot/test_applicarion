@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_applicarion/feature/category/presentation/theme/category_them.dart';
 
 import '../extensions/my_colors.dart';
 import '../func/out_line_input_border.dart';
@@ -8,7 +9,10 @@ class AppTheme {
 
   static ThemeData themeData(BuildContext context) {
     return ThemeData(
-      extensions: <ThemeExtension<dynamic>>[MyColors.light],
+      extensions: <ThemeExtension<dynamic>>[
+        MyColors.light,
+        CategoryTheme.category,
+      ],
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: Theme.of(context).textTheme.bodyLarge,
         errorBorder: outLineInputBorder(color: Colors.red, radius: 8),
