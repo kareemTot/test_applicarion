@@ -1,10 +1,9 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:test_applicarion/core/theme/app_theme.dart';
 import 'package:test_applicarion/di.dart';
 import 'package:test_applicarion/feature/login/presentation/views/login_screen.dart';
-
 import 'core/cache/app_shared_pref.dart';
 import 'core/constant/constant.dart';
 
@@ -37,6 +36,7 @@ class MyApp extends StatelessWidget {
     return GraphQLProvider(
       client: client,
       child: MaterialApp(
+        theme: AppTheme.themeData(context),
         debugShowCheckedModeBanner: false,
         home: LoginScreen(),
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-InputBorder outLineInputBorder({Color? color}) {
+InputBorder outLineInputBorder({Color? color, double? radius}) {
   return OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8),
+    borderRadius: BorderRadius.circular(radius ?? 8),
     borderSide: BorderSide(color: color ?? Colors.orange),
   );
 }
