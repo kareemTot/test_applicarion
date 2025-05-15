@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ class LoginCubit extends Cubit<LoginState> {
       );
       result.fold((l) => emit(LoginFailureState(l.message)), (r) async {
         await SharedPref().set(tokenValue, r.accessToken!);
+        log("========================== Login Cubit ${r.accessToken}");
 
         emit(LoginSuccessState());
       });

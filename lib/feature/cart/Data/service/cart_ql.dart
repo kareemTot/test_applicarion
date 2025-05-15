@@ -2,7 +2,7 @@ String cartQl = '''
 query Cart {
     cart(
         storeId: "alkhbaz"
-        userId: "5f5d15fd-39e2-4a8d-93d8-727208148bea"
+        userId: "33c62fb7-7904-4872-ad08-34062f343178"
         cartType: "cart"
         cartName: "DefaultCart"
         currencyCode: "EGP"

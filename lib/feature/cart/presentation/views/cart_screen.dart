@@ -28,6 +28,7 @@ class CartScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (result.hasException) {
+            log(result.exception.toString());
             return Center(child: Text(result.exception.toString()));
           }
           if (result.data != null) {

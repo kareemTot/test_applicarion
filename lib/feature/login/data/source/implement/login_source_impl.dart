@@ -15,7 +15,7 @@ class LoginSourceImpl implements LoginSource {
   }) async {
     try {
       final response = await _dio.post(
-        "token",
+        "connect/token",
         data: {
           "username": username,
           "password": password,
