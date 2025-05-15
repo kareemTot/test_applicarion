@@ -36,7 +36,7 @@ Future<void> _registerSingletons() async {
     validateStatus: (status) {
       return status != null && status < 500;
     },
-    baseUrl: url,
+    baseUrl: baseUrlTest,
     followRedirects: false,
     headers: {'Content-Type': 'application/json'},
     connectTimeout: const Duration(seconds: 60),
@@ -45,7 +45,7 @@ Future<void> _registerSingletons() async {
   final client = GraphQLClient(
     cache: GraphQLCache(),
     link: HttpLink(
-      baseUrl,
+      graphQlUrl,
       defaultHeaders: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token",
@@ -60,7 +60,7 @@ Future<void> _registerSingletons() async {
 
 void _registerDataSources() {
   getIt.registerSingleton<ProductsSource>(ProductsSourceImplement(getIt()));
-  getIt.registerSingleton<CartSource>(CartSourceImplement(getIt()));
+  getIt.registerSingleton<CartSource>(CartSourceImplement(getIt(), getIt()));
   getIt.registerSingleton<LoginSource>(LoginSourceImpl(getIt()));
   getIt.registerSingleton<FullfilmentCenterSource>(
     FullfilmentCenterSourceImplement(getIt()),

@@ -20,6 +20,23 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) {
+      //       return const OnlinePaymentScreen(
+      //         sessionId: "SESSION0002700600475I54829804I7",
+      //       );
+      //     },
+      //   ),
+      // );
+      // cubit.onlinePayment(
+      //   orderId: "14491b68-2347-4b38-81d4-9e30234296ba",
+      // );
+      // },
+      // ),
       appBar: AppBar(
         title: const Text('Alkhbaz Store Statistics'),
         automaticallyImplyLeading: false,

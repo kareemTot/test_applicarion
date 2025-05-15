@@ -3,8 +3,8 @@ mutation ClearCart {
     clearCart(
         command: { 
             storeId: "alkhbaz",
-            userId: "5f5d15fd-39e2-4a8d-93d8-727208148be" 
-            cartId: "1364befa-b189-4820-87fa-27378a6ec09d"
+            userId: "33c62fb7-7904-4872-ad08-34062f343178" 
+            cartId: "6da1d535-a9a7-4a09-90c7-e5ccd3d668ff"
             cartType: "cart"
             cartName: "DefaultCart"}
     ) {

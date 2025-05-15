@@ -3,8 +3,8 @@ mutation AddOrUpdateCartShipment (\$cityName :OptionalString , \$countryName : O
     addOrUpdateCartShipment(
         command: {
             storeId: "alkhbaz"
-            userId: "5f5d15fd-39e2-4a8d-93d8-727208148bea"
-            cartId: "1364befa-b189-4820-87fa-27378a6ec09d"
+            userId: "33c62fb7-7904-4872-ad08-34062f343178"
+            cartId: "7cebdb6a-530b-4218-90f1-b6b9515b4807"
             cartType: "cart"
             cartName: "DefaultCart"
             currencyCode: "EGP"

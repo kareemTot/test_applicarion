@@ -1,5 +1,5 @@
 const String createOrderQl = ''' 
-mutation CreateOrderFromCart(\$id :String!) {
+mutation CreateOrderFromCart(\$id :String) {
     createOrderFromCart(command: { cartId: \$id }) {
         id
         operationType

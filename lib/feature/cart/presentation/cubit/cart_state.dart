@@ -32,3 +32,34 @@ final class GetCartFailureState extends CartState {
   final String message;
   const GetCartFailureState({required this.message});
 }
+
+final class OnlinePaymentSuccessState extends CartState {
+  final String sessionId;
+  const OnlinePaymentSuccessState({required this.sessionId});
+}
+
+final class OnlinePaymentFailureState extends CartState {
+  final String message;
+  const OnlinePaymentFailureState({required this.message});
+}
+
+final class CreateOrderLoadingState extends CartState {}
+
+final class CreateOrderSuccesState extends CartState {
+  final CreateOrderModel createOrderModel;
+  const CreateOrderSuccesState({required this.createOrderModel});
+}
+
+final class CreateOrderFailureState extends CartState {
+  final String message;
+  const CreateOrderFailureState({required this.message});
+}
+
+final class UpdateOrderPaymentSuccessState extends CartState {
+  const UpdateOrderPaymentSuccessState();
+}
+
+final class UpdateOrderPaymentFailureState extends CartState {
+  final String message;
+  const UpdateOrderPaymentFailureState({required this.message});
+}

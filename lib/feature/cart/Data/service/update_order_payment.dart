@@ -1,9 +1,9 @@
-const String updateOrderPayment = '''
+const String updateOrderPaymentQl = '''
 mutation AddOrUpdateOrderPayment(\$id :String! , \$amount :OptionalDecimal!) {
     addOrUpdateOrderPayment(
         command: {
             orderId: \$id
-            payment: { paymentGatewayCode: "DefaultManualPaymentMethod", amount: \$amount }
+            payment: { paymentGatewayCode: "QnbMethod", amount: \$amount }
         }
     ) {
         id
